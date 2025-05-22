@@ -98,7 +98,9 @@ export default function Home() {
           />
           Go to nextjs.org →
         </a>
-        <Button variant='destructive'>Click Here</Button>
+        <Button variant="destructive" className="">
+          Click Here
+        </Button>
       </footer>
     </div>
   );
