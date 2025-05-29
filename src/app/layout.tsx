@@ -1,15 +1,26 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_TC, Noto_Serif_TC } from 'next/font/google';
+import { Noto_Sans_TC, Noto_Serif_TC, Space_Grotesk } from 'next/font/google';
 import '@/styles/globals.css';
+
+import GlobalHeader from '@/components/GlobalHeader';
+import GlobalFooter from '@/components/GlobalFooter';
 
 const notoSansTc = Noto_Sans_TC({
   variable: '--font-noto-sans-tc',
   subsets: ['latin'],
+  weight: 'variable',
 });
 
 const notoSerifTc = Noto_Serif_TC({
   variable: '--font-noto-serif-tc',
   subsets: ['latin'],
+  weight: 'variable',
+});
+
+const spaceGrotesk = Space_Grotesk({
+  variable: '--font-space-grotesk',
+  subsets: ['latin'],
+  weight: 'variable',
 });
 
 export const metadata: Metadata = {
@@ -26,9 +37,11 @@ export default function RootLayout({
   return (
     <html lang="zh-TW">
       <body
-        className={`${notoSansTc.variable} ${notoSerifTc.variable} antialiased`}
+        className={`${notoSansTc.variable} ${notoSerifTc.variable} ${spaceGrotesk.variable} antialiased`}
       >
+        <GlobalHeader />
         {children}
+        <GlobalFooter />
       </body>
     </html>
   );

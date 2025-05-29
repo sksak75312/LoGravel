@@ -1,107 +1,180 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{' '}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+    <main>
+      <section className="container mt-20 flex items-center justify-center gap-56">
+        <aside className="max-w-[40%]">
+          <h2 className="font-noto-serif-tc mb-6 text-[40px] font-bold">
+            Hi! 這裡是 LoGravel
+          </h2>
+          <div className="mb-12 flex flex-col gap-6 text-xl">
+            <p>
+              我是一名前端工程師，在這裡面會分享和紀錄軟體開發的文章，包括但不限於前端、後端、資料庫...等。也會推薦我看過的書籍、電影內容。
+            </p>
+            <p>希望每篇內容都能對您有所幫助。</p>
+          </div>
+          <div className="text-center">
+            <Link
+              href="programs"
+              className="mx-auto inline-block rounded-[8px] bg-[#C8AD55] px-12 py-2 text-[32px]"
+            >
+              閱讀文章
+            </Link>
+          </div>
+        </aside>
+        <div className="w-[35%]">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            role="img"
+            viewBox="0 0 24 24"
+            className="h-full w-full text-[#61DAFB]"
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+            <title>React</title>
+            <path
+              d="M14.23 12.004a2.236 2.236 0 0 1-2.235 2.236 2.236 2.236 0 0 1-2.236-2.236 2.236 2.236 0 0 1 2.235-2.236 2.236 2.236 0 0 1 2.236 2.236zm2.648-10.69c-1.346 0-3.107.96-4.888 2.622-1.78-1.653-3.542-2.602-4.887-2.602-.41 0-.783.093-1.106.278-1.375.793-1.683 3.264-.973 6.365C1.98 8.917 0 10.42 0 12.004c0 1.59 1.99 3.097 5.043 4.03-.704 3.113-.39 5.588.988 6.38.32.187.69.275 1.102.275 1.345 0 3.107-.96 4.888-2.624 1.78 1.654 3.542 2.603 4.887 2.603.41 0 .783-.09 1.106-.275 1.374-.792 1.683-3.263.973-6.365C22.02 15.096 24 13.59 24 12.004c0-1.59-1.99-3.097-5.043-4.032.704-3.11.39-5.587-.988-6.38-.318-.184-.688-.277-1.092-.278zm-.005 1.09v.006c.225 0 .406.044.558.127.666.382.955 1.835.73 3.704-.054.46-.142.945-.25 1.44-.96-.236-2.006-.417-3.107-.534-.66-.905-1.345-1.727-2.035-2.447 1.592-1.48 3.087-2.292 4.105-2.295zm-9.77.02c1.012 0 2.514.808 4.11 2.28-.686.72-1.37 1.537-2.02 2.442-1.107.117-2.154.298-3.113.538-.112-.49-.195-.964-.254-1.42-.23-1.868.054-3.32.714-3.707.19-.09.4-.127.563-.132zm4.882 3.05c.455.468.91.992 1.36 1.564-.44-.02-.89-.034-1.345-.034-.46 0-.915.01-1.36.034.44-.572.895-1.096 1.345-1.565zM12 8.1c.74 0 1.477.034 2.202.093.406.582.802 1.203 1.183 1.86.372.64.71 1.29 1.018 1.946-.308.655-.646 1.31-1.013 1.95-.38.66-.773 1.288-1.18 1.87-.728.063-1.466.098-2.21.098-.74 0-1.477-.035-2.202-.093-.406-.582-.802-1.204-1.183-1.86-.372-.64-.71-1.29-1.018-1.946.303-.657.646-1.313 1.013-1.954.38-.66.773-1.286 1.18-1.868.728-.064 1.466-.098 2.21-.098zm-3.635.254c-.24.377-.48.763-.704 1.16-.225.39-.435.782-.635 1.174-.265-.656-.49-1.31-.676-1.947.64-.15 1.315-.283 2.015-.386zm7.26 0c.695.103 1.365.23 2.006.387-.18.632-.405 1.282-.66 1.933-.2-.39-.41-.783-.64-1.174-.225-.392-.465-.774-.705-1.146zm3.063.675c.484.15.944.317 1.375.498 1.732.74 2.852 1.708 2.852 2.476-.005.768-1.125 1.74-2.857 2.475-.42.18-.88.342-1.355.493-.28-.958-.646-1.956-1.1-2.98.45-1.017.81-2.01 1.085-2.964zm-13.395.004c.278.96.645 1.957 1.1 2.98-.45 1.017-.812 2.01-1.086 2.964-.484-.15-.944-.318-1.37-.5-1.732-.737-2.852-1.706-2.852-2.474 0-.768 1.12-1.742 2.852-2.476.42-.18.88-.342 1.356-.494zm11.678 4.28c.265.657.49 1.312.676 1.948-.64.157-1.316.29-2.016.39.24-.375.48-.762.705-1.158.225-.39.435-.788.636-1.18zm-9.945.02c.2.392.41.783.64 1.175.23.39.465.772.705 1.143-.695-.102-1.365-.23-2.006-.386.18-.63.406-1.282.66-1.933zM17.92 16.32c.112.493.2.968.254 1.423.23 1.868-.054 3.32-.714 3.708-.147.09-.338.128-.563.128-1.012 0-2.514-.807-4.11-2.28.686-.72 1.37-1.536 2.02-2.44 1.107-.118 2.154-.3 3.113-.54zm-11.83.01c.96.234 2.006.415 3.107.532.66.905 1.345 1.727 2.035 2.446-1.595 1.483-3.092 2.295-4.11 2.295-.22-.005-.406-.05-.553-.132-.666-.38-.955-1.834-.73-3.703.054-.46.142-.944.25-1.438zm4.56.64c.44.02.89.034 1.345.034.46 0 .915-.01 1.36-.034-.44.572-.895 1.095-1.345 1.565-.455-.47-.91-.993-1.36-1.565z"
+              fill="currentColor"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </svg>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-        <Button variant="destructive" className="">
-          Click Here
-        </Button>
-      </footer>
-    </div>
+      </section>
+      <section className="container mt-20">
+        <h3 className="font-noto-serif-tc mb-6 text-center text-[40px] font-bold">
+          最新文章
+        </h3>
+        <ul className="-mx-3 -mt-6 flex flex-wrap">
+          <li className="w-[33.33%] px-3 pt-6">
+            <Link
+              href="change"
+              className="group block overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
+            >
+              <Image
+                src="/react.png"
+                alt="react 圖片"
+                width={416}
+                height={250}
+              />
+              <div className="flex flex-col p-4">
+                <div className="mb-2 flex items-center justify-between text-[#484848]">
+                  <span className="text-base">2025-05-01</span>
+                  <div className="flex gap-2">
+                    <span className="text-xl">#前端技術</span>
+                    <span className="text-xl">#React</span>
+                  </div>
+                </div>
+                <div className="mb-6">
+                  <h4 className="mb-2 text-[28px] font-bold">
+                    React 組件設計的小習慣
+                  </h4>
+                  <p
+                    className="overflow-hidden text-base text-[#484848]"
+                    style={{
+                      display: '-webkit-box',
+                      WebkitBoxOrient: 'vertical',
+                      WebkitLineClamp: '2',
+                    }}
+                  >
+                    在專案開發中，我們常會面臨組件過度複雜的情況。其實只要建立幾個簡單的命名與資料結構習慣，就能大幅減少維護成本。
+                  </p>
+                </div>
+                <Button className="ml-auto cursor-pointer rounded-full border-1 border-black bg-white text-black group-hover:bg-zinc-900 group-hover:text-white">
+                  閱讀全文
+                </Button>
+              </div>
+            </Link>
+          </li>
+          <li className="w-[33.33%] px-3 pt-6">
+            <Link
+              href="change"
+              className="group block overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
+            >
+              <Image src="/git.png" alt="react 圖片" width={416} height={250} />
+              <div className="flex flex-col p-4">
+                <div className="mb-2 flex items-center justify-between text-[#484848]">
+                  <span className="text-base">2025-05-01</span>
+                  <div className="flex gap-2">
+                    <span className="text-xl">#軟體工程</span>
+                    <span className="text-xl">#Git</span>
+                  </div>
+                </div>
+                <div className="mb-6">
+                  <h4 className="mb-2 text-[28px] font-bold">
+                    Git 操作中那些意想不到的事
+                  </h4>
+                  <p
+                    className="overflow-hidden text-base text-[#484848]"
+                    style={{
+                      display: '-webkit-box',
+                      WebkitBoxOrient: 'vertical',
+                      WebkitLineClamp: '2',
+                    }}
+                  >
+                    你是否也曾在使用 git rebase
+                    時，不小心把整個分支搞砸？這些情況雖然常見，但其實只要養成定期
+                    commit、善用 stash 和 tag，就能有效降低風險。
+                    有時候一個簡單的 git log --graph
+                    就能幫你看清整體結構，判斷哪個 merge commit
+                    該保留，哪個該重構。
+                    寫程式除了寫邏輯，版本管理的細節也往往決定了交付的品質，而
+                    Git 就像是一面照妖鏡，把你開發的節奏全都照了出來。
+                  </p>
+                </div>
+                <Button className="ml-auto cursor-pointer rounded-full border-1 border-black bg-white text-black group-hover:bg-zinc-900 group-hover:text-white">
+                  閱讀全文
+                </Button>
+              </div>
+            </Link>
+          </li>
+          <li className="w-[33.33%] px-3 pt-6">
+            <Link
+              href="change"
+              className="group block overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
+            >
+              <Image
+                src="/tailwind.png"
+                alt="react 圖片"
+                width={416}
+                height={250}
+              />
+              <div className="flex flex-col p-4">
+                <div className="mb-2 flex items-center justify-between text-[#484848]">
+                  <span className="text-base">2025-04-25</span>
+                  <div className="flex gap-2">
+                    <span className="text-xl">#軟體工程</span>
+                    <span className="text-xl">#Git</span>
+                  </div>
+                </div>
+                <div className="mb-6">
+                  <h4 className="mb-2 text-[28px] font-bold">
+                    Tailwind CSS 快速佈局的秘密
+                  </h4>
+                  <p
+                    className="overflow-hidden text-base text-[#484848]"
+                    style={{
+                      display: '-webkit-box',
+                      WebkitBoxOrient: 'vertical',
+                      WebkitLineClamp: '2',
+                    }}
+                  >
+                    Tailwind
+                    的強大，在於它能讓你以原子化方式建構出極具彈性的畫面配置。只需幾個
+                    class，就能打造 RWD 相容的元件。 像是 flex, gap,
+                    justify-between，甚至 aspect-square
+                    等語法，讓你幾乎不再需要回頭寫 CSS file。 當然，一開始會覺得
+                    class
+                    超多眼花撩亂，但習慣後你會發現這是一種「結構先行」的思維方式，特別適合大型模組化開發。
+                  </p>
+                </div>
+                <Button className="ml-auto cursor-pointer rounded-full border-1 border-black bg-white text-black transition-all duration-300 group-hover:bg-zinc-900 group-hover:text-white">
+                  閱讀全文
+                </Button>
+              </div>
+            </Link>
+          </li>
+        </ul>
+      </section>
+    </main>
   );
 }
