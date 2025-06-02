@@ -1,5 +1,25 @@
 # CHANGELOG
 
+## 0.1.3 ( 2025-06-02 )
+
+### feat
+
+- 取得 MDX Frontmatter 功能
+
+### chore
+
+- 新增 @tailwwindcss/typography 套件
+- 新增 gray-matter 套件
+
+### style
+
+- 調整 Header、Footer 元件樣式
+- 調整 RootLayout CSS Container 位置
+
+### refactor
+
+- 重構文章列表，拆元件
+
 ## 0.1.2 ( 2025-05-29 )
 
 ### style

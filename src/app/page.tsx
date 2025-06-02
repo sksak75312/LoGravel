@@ -4,8 +4,8 @@ import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
-    <main>
-      <section className="container mt-20 flex items-center justify-center gap-56">
+    <>
+      <section className="mt-20 flex items-center justify-center gap-56">
         <aside className="max-w-[40%]">
           <h2 className="font-noto-serif-tc mb-6 text-[40px] font-bold">
             Hi! 這裡是 LoGravel
@@ -40,15 +40,15 @@ export default function Home() {
           </svg>
         </div>
       </section>
-      <section className="container mt-20">
+      <section className="my-20">
         <h3 className="font-noto-serif-tc mb-6 text-center text-[40px] font-bold">
           最新文章
         </h3>
-        <ul className="-mx-3 -mt-6 flex flex-wrap">
-          <li className="w-[33.33%] px-3 pt-6">
+        <ul className="-mx-4 -mt-6 flex flex-wrap">
+          <li className="w-[33.33%] px-4 pt-6">
             <Link
               href="change"
-              className="group block overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
+              className="group flex h-full flex-col overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
             >
               <Image
                 src="/react.png"
@@ -56,7 +56,7 @@ export default function Home() {
                 width={416}
                 height={250}
               />
-              <div className="flex flex-col p-4">
+              <div className="flex h-full grow flex-col p-4">
                 <div className="mb-2 flex items-center justify-between text-[#484848]">
                   <span className="text-base">2025-05-01</span>
                   <div className="flex gap-2">
@@ -64,7 +64,7 @@ export default function Home() {
                     <span className="text-xl">#React</span>
                   </div>
                 </div>
-                <div className="mb-6">
+                <div className="mb-6 flex grow flex-col">
                   <h4 className="mb-2 text-[28px] font-bold">
                     React 組件設計的小習慣
                   </h4>
@@ -85,23 +85,28 @@ export default function Home() {
               </div>
             </Link>
           </li>
-          <li className="w-[33.33%] px-3 pt-6">
+          <li className="w-[33.33%] px-4 pt-6">
             <Link
               href="change"
-              className="group block overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
+              className="group flex h-full flex-col overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
             >
-              <Image src="/git.png" alt="react 圖片" width={416} height={250} />
-              <div className="flex flex-col p-4">
+              <Image
+                src="/react.png"
+                alt="react 圖片"
+                width={416}
+                height={250}
+              />
+              <div className="flex h-full grow flex-col p-4">
                 <div className="mb-2 flex items-center justify-between text-[#484848]">
                   <span className="text-base">2025-05-01</span>
                   <div className="flex gap-2">
-                    <span className="text-xl">#軟體工程</span>
-                    <span className="text-xl">#Git</span>
+                    <span className="text-xl">#前端技術</span>
+                    <span className="text-xl">#React</span>
                   </div>
                 </div>
-                <div className="mb-6">
+                <div className="mb-6 flex grow flex-col">
                   <h4 className="mb-2 text-[28px] font-bold">
-                    Git 操作中那些意想不到的事
+                    React 組件設計的小習慣
                   </h4>
                   <p
                     className="overflow-hidden text-base text-[#484848]"
@@ -111,14 +116,7 @@ export default function Home() {
                       WebkitLineClamp: '2',
                     }}
                   >
-                    你是否也曾在使用 git rebase
-                    時，不小心把整個分支搞砸？這些情況雖然常見，但其實只要養成定期
-                    commit、善用 stash 和 tag，就能有效降低風險。
-                    有時候一個簡單的 git log --graph
-                    就能幫你看清整體結構，判斷哪個 merge commit
-                    該保留，哪個該重構。
-                    寫程式除了寫邏輯，版本管理的細節也往往決定了交付的品質，而
-                    Git 就像是一面照妖鏡，把你開發的節奏全都照了出來。
+                    在專案開發中，我們常會面臨組件過度複雜的情況。其實只要建立幾個簡單的命名與資料結構習慣，就能大幅減少維護成本。
                   </p>
                 </div>
                 <Button className="ml-auto cursor-pointer rounded-full border-1 border-black bg-white text-black group-hover:bg-zinc-900 group-hover:text-white">
@@ -127,28 +125,28 @@ export default function Home() {
               </div>
             </Link>
           </li>
-          <li className="w-[33.33%] px-3 pt-6">
+          <li className="w-[33.33%] px-4 pt-6">
             <Link
               href="change"
-              className="group block overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
+              className="group flex h-full flex-col overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
             >
               <Image
-                src="/tailwind.png"
+                src="/react.png"
                 alt="react 圖片"
                 width={416}
                 height={250}
               />
-              <div className="flex flex-col p-4">
+              <div className="flex h-full grow flex-col p-4">
                 <div className="mb-2 flex items-center justify-between text-[#484848]">
-                  <span className="text-base">2025-04-25</span>
+                  <span className="text-base">2025-05-01</span>
                   <div className="flex gap-2">
-                    <span className="text-xl">#軟體工程</span>
-                    <span className="text-xl">#Git</span>
+                    <span className="text-xl">#前端技術</span>
+                    <span className="text-xl">#React</span>
                   </div>
                 </div>
-                <div className="mb-6">
+                <div className="mb-6 flex grow flex-col">
                   <h4 className="mb-2 text-[28px] font-bold">
-                    Tailwind CSS 快速佈局的秘密
+                    React 組件設計的小習慣
                   </h4>
                   <p
                     className="overflow-hidden text-base text-[#484848]"
@@ -158,16 +156,10 @@ export default function Home() {
                       WebkitLineClamp: '2',
                     }}
                   >
-                    Tailwind
-                    的強大，在於它能讓你以原子化方式建構出極具彈性的畫面配置。只需幾個
-                    class，就能打造 RWD 相容的元件。 像是 flex, gap,
-                    justify-between，甚至 aspect-square
-                    等語法，讓你幾乎不再需要回頭寫 CSS file。 當然，一開始會覺得
-                    class
-                    超多眼花撩亂，但習慣後你會發現這是一種「結構先行」的思維方式，特別適合大型模組化開發。
+                    在專案開發中，我們常會面臨組件過度複雜的情況。其實只要建立幾個簡單的命名與資料結構習慣，就能大幅減少維護成本。
                   </p>
                 </div>
-                <Button className="ml-auto cursor-pointer rounded-full border-1 border-black bg-white text-black transition-all duration-300 group-hover:bg-zinc-900 group-hover:text-white">
+                <Button className="ml-auto cursor-pointer rounded-full border-1 border-black bg-white text-black group-hover:bg-zinc-900 group-hover:text-white">
                   閱讀全文
                 </Button>
               </div>
@@ -175,6 +167,6 @@ export default function Home() {
           </li>
         </ul>
       </section>
-    </main>
+    </>
   );
 }
