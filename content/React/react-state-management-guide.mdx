@@ -1,0 +1,467 @@
+---
+title: 'React 狀態管理完整指南：從 useState 到 Context API'
+description: '深入探討 React 中的狀態管理技術，包含 useState、useReducer、Context API 以及狀態提升等核心概念，並提供實用的最佳實踐建議。'
+date: '2025-06-04'
+keywords: ['React', '狀態管理', 'useState', 'useReducer', 'Context API', 'Hooks']
+openGraph: '/react.png'
+slug: 'react-state-management-guide'
+category: 'React'
+---
+
+# React 狀態管理完整指南：從 useState 到 Context API
+
+狀態管理是 React 開發中最重要的核心概念之一。無論是簡單的計數器還是複雜的企業級應用，掌握正確的狀態管理技術都是成功的關鍵。這篇文章將帶你從基礎的 `useState` 開始，逐步深入到 Context API 和自訂 Hook 的進階應用。
+
+---
+
+## 📌 基礎篇：useState 的基本使用
+
+`useState` 是最常用的 Hook，用於在函式元件中管理區域狀態。
+
+```jsx
+import { useState } from 'react';
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>目前計數：{count}</p>
+      <button onClick={() => setCount(count + 1)}>增加</button>
+      <button onClick={() => setCount(count - 1)}>減少</button>
+      <button onClick={() => setCount(0)}>重置</button>
+    </div>
+  );
+}
+```
+
+### 重要概念：
+
+- **狀態不可變性**：永遠不要直接修改狀態，而是使用 setter 函式
+- **批次更新**：React 會自動將多個狀態更新批次處理以提升效能
+- **函式式更新**：當新狀態依賴於前一個狀態時，使用函式形式
+
+```jsx
+// ❌ 錯誤：直接修改狀態
+count++;
+
+// ✅ 正確：使用 setter 函式
+setCount(count + 1);
+
+// ✅ 更好：使用函式式更新
+setCount(prevCount => prevCount + 1);
+```
+
+---
+
+## 🔧 進階篇：處理複雜狀態
+
+當狀態變得複雜時，使用物件或陣列來管理狀態是常見的做法。
+
+```jsx
+import { useState } from 'react';
+
+function UserProfile() {
+  const [user, setUser] = useState({
+    name: '',
+    email: '',
+    age: 0,
+    preferences: {
+      theme: 'light',
+      notifications: true
+    }
+  });
+
+  const updateUserField = (field, value) => {
+    setUser(prevUser => ({
+      ...prevUser,
+      [field]: value
+    }));
+  };
+
+  const updatePreferences = (prefKey, value) => {
+    setUser(prevUser => ({
+      ...prevUser,
+      preferences: {
+        ...prevUser.preferences,
+        [prefKey]: value
+      }
+    }));
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        placeholder="姓名"
+        value={user.name}
+        onChange={(e) => updateUserField('name', e.target.value)}
+      />
+      <input
+        type="email"
+        placeholder="信箱"
+        value={user.email}
+        onChange={(e) => updateUserField('email', e.target.value)}
+      />
+      <input
+        type="number"
+        placeholder="年齡"
+        value={user.age}
+        onChange={(e) => updateUserField('age', parseInt(e.target.value))}
+      />
+      
+      <label>
+        <input
+          type="checkbox"
+          checked={user.preferences.notifications}
+          onChange={(e) => updatePreferences('notifications', e.target.checked)}
+        />
+        接收通知
+      </label>
+    </div>
+  );
+}
+```
+
+---
+
+## ⚡ useReducer：管理複雜邏輯
+
+當狀態邏輯變得複雜時，`useReducer` 提供了更好的管理方式。
+
+```jsx
+import { useReducer } from 'react';
+
+// 定義 action types
+const ACTIONS = {
+  INCREMENT: 'increment',
+  DECREMENT: 'decrement',
+  RESET: 'reset',
+  SET_VALUE: 'set_value'
+};
+
+// Reducer 函式
+function counterReducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.INCREMENT:
+      return { count: state.count + 1 };
+    case ACTIONS.DECREMENT:
+      return { count: state.count - 1 };
+    case ACTIONS.RESET:
+      return { count: 0 };
+    case ACTIONS.SET_VALUE:
+      return { count: action.payload };
+    default:
+      throw new Error(`未知的 action type: ${action.type}`);
+  }
+}
+
+function AdvancedCounter() {
+  const [state, dispatch] = useReducer(counterReducer, { count: 0 });
+
+  return (
+    <div>
+      <p>計數：{state.count}</p>
+      <button onClick={() => dispatch({ type: ACTIONS.INCREMENT })}>
+        +1
+      </button>
+      <button onClick={() => dispatch({ type: ACTIONS.DECREMENT })}>
+        -1
+      </button>
+      <button onClick={() => dispatch({ type: ACTIONS.RESET })}>
+        重置
+      </button>
+      <button onClick={() => dispatch({ type: ACTIONS.SET_VALUE, payload: 10 })}>
+        設為 10
+      </button>
+    </div>
+  );
+}
+```
+
+---
+
+## 🌐 Context API：跨元件狀態共享
+
+當多個元件需要共享狀態時，Context API 是理想的解決方案。
+
+```jsx
+import { createContext, useContext, useReducer } from 'react';
+
+// 建立 Context
+const ThemeContext = createContext();
+
+// Theme Reducer
+function themeReducer(state, action) {
+  switch (action.type) {
+    case 'TOGGLE_THEME':
+      return {
+        ...state,
+        theme: state.theme === 'light' ? 'dark' : 'light'
+      };
+    case 'SET_LANGUAGE':
+      return {
+        ...state,
+        language: action.payload
+      };
+    default:
+      return state;
+  }
+}
+
+// Context Provider
+export function ThemeProvider({ children }) {
+  const [state, dispatch] = useReducer(themeReducer, {
+    theme: 'light',
+    language: 'zh-TW'
+  });
+
+  const value = {
+    ...state,
+    toggleTheme: () => dispatch({ type: 'TOGGLE_THEME' }),
+    setLanguage: (lang) => dispatch({ type: 'SET_LANGUAGE', payload: lang })
+  };
+
+  return (
+    <ThemeContext.Provider value={value}>
+      {children}
+    </ThemeContext.Provider>
+  );
+}
+
+// 自訂 Hook
+export function useTheme() {
+  const context = useContext(ThemeContext);
+  if (!context) {
+    throw new Error('useTheme 必須在 ThemeProvider 內使用');
+  }
+  return context;
+}
+
+// 使用範例
+function Header() {
+  const { theme, toggleTheme } = useTheme();
+  
+  return (
+    <header style={{ backgroundColor: theme === 'light' ? '#fff' : '#333' }}>
+      <h1>我的應用</h1>
+      <button onClick={toggleTheme}>
+        切換到 {theme === 'light' ? '深色' : '淺色'} 主題
+      </button>
+    </header>
+  );
+}
+```
+
+---
+
+## 🎯 自訂 Hook：封裝狀態邏輯
+
+自訂 Hook 讓你能夠重複使用狀態邏輯。
+
+```jsx
+import { useState, useEffect } from 'react';
+
+// 自訂 Hook：管理本地儲存
+function useLocalStorage(key, initialValue) {
+  const [storedValue, setStoredValue] = useState(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+      return item ? JSON.parse(item) : initialValue;
+    } catch (error) {
+      console.error('讀取 localStorage 錯誤:', error);
+      return initialValue;
+    }
+  });
+
+  const setValue = (value) => {
+    try {
+      setStoredValue(value);
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch (error) {
+      console.error('寫入 localStorage 錯誤:', error);
+    }
+  };
+
+  return [storedValue, setValue];
+}
+
+// 使用自訂 Hook
+function Settings() {
+  const [settings, setSettings] = useLocalStorage('userSettings', {
+    theme: 'light',
+    notifications: true
+  });
+
+  const updateSetting = (key, value) => {
+    setSettings(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  return (
+    <div>
+      <h2>設定</h2>
+      <label>
+        主題：
+        <select 
+          value={settings.theme}
+          onChange={(e) => updateSetting('theme', e.target.value)}
+        >
+          <option value="light">淺色</option>
+          <option value="dark">深色</option>
+        </select>
+      </label>
+      
+      <label>
+        <input
+          type="checkbox"
+          checked={settings.notifications}
+          onChange={(e) => updateSetting('notifications', e.target.checked)}
+        />
+        啟用通知
+      </label>
+    </div>
+  );
+}
+```
+
+---
+
+## 📋 狀態提升：共享狀態的最佳實踐
+
+當子元件需要共享狀態時，將狀態提升到它們的共同父元件。
+
+```jsx
+import { useState } from 'react';
+
+function ShoppingApp() {
+  const [cart, setCart] = useState([]);
+  const [products] = useState([
+    { id: 1, name: 'iPhone', price: 30000 },
+    { id: 2, name: 'MacBook', price: 50000 },
+    { id: 3, name: 'iPad', price: 20000 }
+  ]);
+
+  const addToCart = (product) => {
+    setCart(prevCart => {
+      const existingItem = prevCart.find(item => item.id === product.id);
+      if (existingItem) {
+        return prevCart.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+      }
+      return [...prevCart, { ...product, quantity: 1 }];
+    });
+  };
+
+  const removeFromCart = (productId) => {
+    setCart(prevCart => prevCart.filter(item => item.id !== productId));
+  };
+
+  return (
+    <div>
+      <ProductList products={products} onAddToCart={addToCart} />
+      <Cart items={cart} onRemoveFromCart={removeFromCart} />
+    </div>
+  );
+}
+
+function ProductList({ products, onAddToCart }) {
+  return (
+    <div>
+      <h2>商品列表</h2>
+      {products.map(product => (
+        <div key={product.id}>
+          <h3>{product.name}</h3>
+          <p>價格：${product.price}</p>
+          <button onClick={() => onAddToCart(product)}>
+            加入購物車
+          </button>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Cart({ items, onRemoveFromCart }) {
+  const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  return (
+    <div>
+      <h2>購物車</h2>
+      {items.length === 0 ? (
+        <p>購物車是空的</p>
+      ) : (
+        <>
+          {items.map(item => (
+            <div key={item.id}>
+              <span>{item.name} x {item.quantity}</span>
+              <button onClick={() => onRemoveFromCart(item.id)}>
+                移除
+              </button>
+            </div>
+          ))}
+          <p><strong>總計：${total}</strong></p>
+        </>
+      )}
+    </div>
+  );
+}
+```
+
+---
+
+## 💡 最佳實踐與常見陷阱
+
+### 最佳實踐
+
+1. **保持狀態結構簡單**：避免過度巢狀的物件結構
+2. **使用 useCallback 和 useMemo**：避免不必要的重新渲染
+3. **狀態歸一化**：將複雜資料結構正規化
+4. **單一職責原則**：每個狀態應該有明確的用途
+
+### 常見陷阱
+
+```jsx
+// ❌ 陷阱 1：直接修改狀態
+const [items, setItems] = useState([1, 2, 3]);
+items.push(4); // 錯誤！
+
+// ✅ 正確做法
+setItems(prev => [...prev, 4]);
+
+// ❌ 陷阱 2：在 useEffect 中忘記依賴
+useEffect(() => {
+  fetchData(userId);
+}, []); // 缺少 userId 依賴
+
+// ✅ 正確做法
+useEffect(() => {
+  fetchData(userId);
+}, [userId]);
+
+// ❌ 陷阱 3：過度使用 Context
+// 不要為每個小狀態都建立 Context
+
+// ✅ 正確做法：只為真正需要全域共享的狀態使用 Context
+```
+
+---
+
+## 🚀 總結
+
+React 狀態管理的選擇取決於你的應用複雜度：
+
+- **簡單狀態**：使用 `useState`
+- **複雜邏輯**：使用 `useReducer`
+- **跨元件共享**：使用 Context API
+- **重複邏輯**：建立自訂 Hook
+- **大型應用**：考慮第三方狀態管理庫如 Redux、Zustand
+
+掌握這些基礎概念後，你就能根據專案需求選擇最適合的狀態管理方案，並寫出更維護性更高的 React 應用。
+
+記住，好的狀態管理不僅僅是技術問題，更是設計問題。花時間思考你的狀態結構，會讓你的程式碼更清晰、更容易維護。
