@@ -5,4 +5,5 @@ export interface Post {
   keywords: string[];
   openGraph: string;
   slug: string;
+  category: string;
 }

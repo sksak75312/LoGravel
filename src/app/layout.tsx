@@ -43,7 +43,7 @@ export default function RootLayout({
         className={`${notoSansTc.variable} ${notoSerifTc.variable} ${spaceGrotesk.variable} antialiased`}
       >
         <GlobalHeader />
-        <main className="container">{children}</main>
+        {children}
         <GlobalFooter />
       </body>
     </html>
