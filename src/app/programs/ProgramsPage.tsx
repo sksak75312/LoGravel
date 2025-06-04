@@ -1,29 +1,8 @@
-import { readdirSync, readFileSync } from 'node:fs';
-import { join } from 'node:path';
-import matter from 'gray-matter';
 import type { Metadata } from 'next';
 
-// 取得 content 資料夾裡的所有名稱
-const postCategories = readdirSync(join(process.cwd(), 'content'));
-
-const postList = postCategories
-  .map((dir) => {
-    // 取得特定資料夾裡的檔案
-    const fileName = readdirSync(join(process.cwd(), 'content', dir));
-
-    // 使用 matter 取得 metadata 中的資料
-    const fileData = fileName.map((file) => {
-      return matter(readFileSync(join(process.cwd(), 'content', dir, file)))
-        .data;
-    });
-    return fileData;
-  })
-  .flat() as { title: string; summary: string; date: string }[];
-
-// 重新排列文章順序
-postList.sort(
-  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-);
+import { ListContainer, ListItem } from '@/components/ListLayout';
+import { PostCard } from '@/components/PostCard';
+import { postList } from '@/utils/getPostData';
 
 export const metadata: Metadata = {
   title:
@@ -31,5 +10,26 @@ export const metadata: Metadata = {
 };
 
 export default function ProgramsPage() {
-  return <></>;
+  return (
+    <main className="container">
+      <section className="my-20">
+        <ListContainer wrap>
+          {postList.map((post) => {
+            return (
+              <ListItem key={post.slug}>
+                <PostCard
+                  date={post.date}
+                  title={post.title}
+                  content={post.description}
+                  image={post.openGraph}
+                  href={post.slug}
+                  hashtag={post.keywords}
+                />
+              </ListItem>
+            );
+          })}
+        </ListContainer>
+      </section>
+    </main>
+  );
 }

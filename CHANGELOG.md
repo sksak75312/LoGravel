@@ -1,5 +1,34 @@
 # CHANGELOG
 
+## 0.1.4 ( 2025-06-05 )
+
+### feat
+
+- 定義 Post Interface
+- 新增單一文章頁面功能
+
+### refactor
+
+- 重構 getPostData Utils 為單一函式
+- 文章列表使用共用元件
+
+### fix
+
+- 修正 NEXT 路徑錯誤
+
+### style
+
+- 調整 Header 背景顏色位置
+
+### chore
+
+- 新增 next-mdx-remote-client 套件
+- 新增 Ts paths @content/\* 路徑
+
+### test
+
+- 增加 content 測試 MDX 文件
+
 ## 0.1.3 ( 2025-06-02 )
 
 ### feat
