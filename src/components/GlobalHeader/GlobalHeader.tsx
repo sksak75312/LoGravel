@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function GlobalHeader() {
   return (
-    <header className="sticky top-0 bg-[#fbfbfb] shadow-[0_0_3px_rgba(0,0,0,0.50)]">
+    <header className="sticky top-0 z-[999] bg-[#fbfbfb] shadow-[0_0_3px_rgba(0,0,0,0.50)]">
       <div className="container flex items-center justify-between py-4">
         <Link href="/">
           <h1 className="font-space-grotesk text-[32px] font-bold text-[#2D232E]">
