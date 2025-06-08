@@ -1,4 +1,5 @@
-import { MDXRemote } from 'next-mdx-remote-client/rsc';
+import { MDXRemote, type MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
+import rehypeSlug from 'rehype-slug';
 import { postList, postWithSlug } from '@/utils/getPostData';
 
 export function generateStaticParams() {
@@ -6,6 +7,10 @@ export function generateStaticParams() {
 }
 
 export const dynamicParams = false;
+
+/**
+ * TODO 使用 NodeJS 的 fs 功能取得檔案資料，並透過  MDXRemote 元件渲染畫面
+ */
 
 export default async function ProgramBlogPage({
   params,
@@ -15,11 +20,15 @@ export default async function ProgramBlogPage({
   const { slug } = await params;
   const { content } = postWithSlug(slug);
 
+  const options: MDXRemoteOptions = {
+    mdxOptions: {
+      rehypePlugins: [rehypeSlug],
+    },
+  };
+
   return (
-    <main className="container pt-10 pb-20">
-      <article className="prose prose-headings:mt-8 prose-headings:font-semibold prose-headings:text-black prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg dark:prose-headings:text-white mx-auto max-w-[80ch]">
-        <MDXRemote source={content} />
-      </article>
-    </main>
+    <article className="prose prose-headings:mt-8 prose-headings:font-semibold prose-headings:text-black prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg dark:prose-headings:text-white mx-auto max-w-[80ch]">
+      <MDXRemote source={content} options={options} />
+    </article>
   );
 }

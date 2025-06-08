@@ -129,3 +129,11 @@ body {
     var(--font-noto-sans-tc), var(--font-noto-serif-tc), 'sans-serif';
   background-color: #fbfbfb;
 }
+
+.prose :is(h1, h2, h3, h4, h5, h6) {
+  @apply scroll-mt-28;
+}
+
+.prose h1 {
+  @apply mt-0;
+}
