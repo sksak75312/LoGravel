@@ -5,13 +5,24 @@ import type { List, RootContent, ListItem, Text } from 'mdast';
 
 import { postWithSlug } from '@/utils/getPostData';
 
+/**
+ *
+ * @param {toc} MDAST
+ * @param {isRoot}
+ * @returns JSX Element
+ */
 function renderTOC(toc: List, isRoot = false) {
   if (!toc.children) return null;
 
   return (
     <ul className={isRoot ? '' : 'pl-4'}>
       {toc.children.map((tocItem: ListItem) => {
-        // 尋找段落類型
+        /**
+         * paragraph 變數從 tocItem find 類型是否為 paragraph
+         * link 變數從 paragraph find 類型是否為 link
+         * title 變數從 link children 取得 value
+         * url 變數從 link 取得 url 的值
+         */
         const paragraph = tocItem.children.find(
           (n: RootContent) => n.type === 'paragraph',
         );
@@ -26,6 +37,10 @@ function renderTOC(toc: List, isRoot = false) {
           (n: RootContent) => n.type === 'list',
         );
 
+        /**
+         * 透過遞迴方式完成整個 TOC
+         */
+
         return (
           <li key={title}>
             <a href={url}>{title}</a>
@@ -37,6 +52,11 @@ function renderTOC(toc: List, isRoot = false) {
   );
 }
 
+/**
+ *
+ * @param {slug} 當前頁面的動態參數
+ * @returns JSX Element，包含呼叫 renderTOC function
+ */
 export default async function ArticleTOC({
   slug,
   ...props
