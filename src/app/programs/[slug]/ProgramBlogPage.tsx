@@ -1,5 +1,6 @@
 import { MDXRemote, type MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
 import rehypeSlug from 'rehype-slug';
+import rehypeHighlight from 'rehype-highlight';
 import { postList, postWithSlug } from '@/utils/getPostData';
 
 export function generateStaticParams() {
@@ -22,12 +23,12 @@ export default async function ProgramBlogPage({
 
   const options: MDXRemoteOptions = {
     mdxOptions: {
-      rehypePlugins: [rehypeSlug],
+      rehypePlugins: [rehypeSlug, rehypeHighlight],
     },
   };
 
   return (
-    <article className="prose prose-headings:mt-8 prose-headings:font-semibold prose-headings:text-black prose-h1:text-5xl prose-h2:text-4xl prose-h3:text-3xl prose-h4:text-2xl prose-h5:text-xl prose-h6:text-lg dark:prose-headings:text-white mx-auto max-w-[80ch]">
+    <article className="prose prose-pre:bg-[#0d1117] mx-auto max-w-[80ch]">
       <MDXRemote source={content} options={options} />
     </article>
   );

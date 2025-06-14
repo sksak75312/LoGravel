@@ -6,7 +6,7 @@ import type { List, RootContent, ListItem, Text } from 'mdast';
 import { postWithSlug } from '@/utils/getPostData';
 
 /**
- *
+ * @description 遞迴函式，用於生成 TOC 樣式
  * @param {toc} MDAST
  * @param {isRoot}
  * @returns JSX Element
@@ -37,10 +37,6 @@ function renderTOC(toc: List, isRoot = false) {
           (n: RootContent) => n.type === 'list',
         );
 
-        /**
-         * 透過遞迴方式完成整個 TOC
-         */
-
         return (
           <li key={title}>
             <a href={url}>{title}</a>
@@ -64,6 +60,11 @@ export default async function ArticleTOC({
   slug: string;
   className: string;
 }) {
+  /**
+   * 動態路由從 postWithSlug function 取得 MDX
+   * MDX 檔案轉換成 Mdast(Markdown Abstract Syntax Tree)
+   * Mdast 結構轉為 TOC Table of contents
+   */
   const { content } = postWithSlug(slug);
   const tree = await unified().use(remarkParse).parse(content);
 
