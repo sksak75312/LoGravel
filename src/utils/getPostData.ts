@@ -1,5 +1,6 @@
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import { cache } from 'react';
 import matter from 'gray-matter';
 import { Post } from '@/types/interface';
 
@@ -25,9 +26,8 @@ export const postList = postCategories
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
   ) as Post[];
 
-export const postWithSlug = (slug: string) => {
+export const postWithSlug = cache((slug: string) => {
   const findPost = postList.find((post) => post.slug === slug);
-
   return matter(
     readFileSync(
       join(
@@ -38,4 +38,4 @@ export const postWithSlug = (slug: string) => {
       ),
     ),
   );
-};
+});

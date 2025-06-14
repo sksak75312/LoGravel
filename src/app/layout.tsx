@@ -25,8 +25,8 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: {
-    template: 'LoGravel | %s',
-    default: 'LoGravel | 分享與紀錄，成為更好的開發人員',
+    template: '%s | LoGravel',
+    default: '分享與紀錄，成為更好的開發人員 | LoGravel',
   },
   description:
     'LoGravel 是一位前端工程師的技術部落格，透過分享、紀錄的方式，讓自己對軟體開發更深入，也希望透過本網站內容，可以幫助到正在學習的你。',

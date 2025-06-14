@@ -1,5 +1,21 @@
 # CHANGELOG
 
+## 0.1.5 ( 2025-06-14 )
+
+### feat
+
+- 新增文章側邊 TOC 結構，使用 remark-parse 取得 Mdast 結構，搭配 mdast-util-toc 取得 mdast 目錄結構
+- 修改 Meta Title 顯示方式，由 LoGravel | %s 改成 %s | LoGravel
+
+### style
+
+- 調整 ProgramBlogPage 的文章顯示樣式，Heading、Text 移除，新增 Code 區塊 Background Color
+- Header 的 Position 樣式調整，將文檔層級調高
+
+### chore
+
+- 新增 rehype-lighheight、lighheight.js 套件增加 HTML Code 區塊樣式
+
 ## 0.1.4 ( 2025-06-05 )
 
 ### feat
