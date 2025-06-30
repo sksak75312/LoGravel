@@ -1,0 +1,117 @@
+---
+title: 'Google Core Web Vitals'
+description: 'Google 的核心網頁指標是透過多年的統計下來，並定義出的一套標準。該項標準，能夠有效提升使用者的體驗，並在 Google 的搜尋排名中有更好的名次。'
+keywords:
+  ['Google', 'Core Web Vitals', '核心網頁指標', 'LCP', 'INP', 'CLS', 'LoGravel']
+date: '2025-06-29'
+openGraph: '/GoogleCoreWebVitals.png'
+slug: 'google-core-web-vitals'
+category: 'Website'
+---
+
+## 前言
+
+在網頁開發中，功能實作是必然的，但也必須顧慮到的使用者的體驗(UX)。不好的 UX 網站容易讓使用者不會想再次使用，甚至還沒完整瀏覽過網站或連顯示都尚未，使用者就已經想離開了。
+
+而我們要怎麼知道開發出的網站，對於使用者體驗(UX)是好的還是壞的? 今天這篇文章就是要來說說由 Google 所定出的 Core Web Vitals。
+
+---
+
+## Core Web Vitals 是什麼?
+
+Core Web Vitals 是由 Google 在 2020 年所定義出的，主要是透過三大指標來判斷一個網頁的品質，其評估的方向有，載入時最大內容繪製時間、使用者操作後繪製的時間及操作網站後內容位移距離。
+而這些指標分別叫做 **Largest Contentful Paint(LCP)**、**Interaction to Next Paint(INP)**、**Cumulative Layout Shift(CLS)**，並且它們也對於網站在 Google 的搜尋排名中會有所影響。
+
+> 可能您在觀看其它文章中，會看到 First Input Delay(FID) 這項指標，它是最早 Google 在定 Core Web Vitals 時的其中一項，但後來發現此項定義存在限制，並經過一年的時間測試以及社群回饋後，在 2024 年 3 月由 INP 取代 FID。
+
+### Core Web Vitals 三大主軸
+
+- Largest Contentful Paint(LCP)：最大內容繪製；**在使用者初始載入網站時，需在 2.5 秒內完成當前 ViewPort 的渲染**。
+- Interaction to Next Paint(INP)：互動到下一個繪製；**當使用者對網站有任何操作，需在 200 毫秒內反應並渲染完成**。
+- Cumulative Layout Shift(CLS)：累積版面偏移；**使用者操作網站任何功能，原本顯示在網頁上的內容，偏移分數需低於 0.1 以下**。
+
+## Largest Contentful Paint
+
+### LCP 計算方式
+
+在使用者進入網站時，當下第一個 ViewPort 中的文字區塊、圖片、影片都會被加入候選名單，並從候選名單中選擇最大範圍的內容，計算它首次繪製畫面所花費的時間。而在 ViewPort 以外的網頁內容，或使用者滾動過後才能看到的畫面，都不會納入計算。
+
+### LCP 分數指標
+
+<figure align="center">
+  <img src="/google-lcp.svg" alt="Core Web Vitals LCP 圖示" />
+  <figcaption>
+    <a href="https://web.dev/articles/lcp?hl=en" target="_blank">
+      圖片來源：web.dev — Largest Contentful Paint
+    </a>
+  </figcaption>
+</figure>
+
+### LCP 考量元素
+
+- 文字節點
+- Img 元素
+- SVG 中的 Img
+- Video 元素
+- CSS Url 函式載入的圖片
+
+---
+
+## Interaction to Next Paint
+
+### INP 計算方式
+
+對於使用者在網站上的任何操作都會納入計算項目，例如：按鈕點擊、鍵盤輸入、畫面觸控...等，並會計算此次操作過後最大的回應時間。
+
+### INP 分數指標
+
+<figure align="center">
+  <img src="/google-inp.svg" alt="Core Web Vitals INP 圖示" />
+  <figcaption>
+    <a href="https://web.dev/articles/inp?hl=en" target="_blank">
+      圖片來源：web.dev — Interaction to Next Paint
+    </a>
+  </figcaption>
+</figure>
+
+---
+
+## Cumulative Layout Shift
+
+### CLS 評估方式
+
+透過觸發網頁生命週期重新渲染時，非預期的版面偏移去計算。可能是使用者點擊網頁中某個按鈕，會顯示某個區塊內容，該顯示的區塊導致原本已經在畫面的內容有任何方向移動，例如：從上移到下、從左移到右。
+
+### CLS 分數指標
+
+<figure align="center">
+  <img src="/google-cls.svg" alt="Core Web Vitals CLS 圖示" />
+  <figcaption>
+    <a href="https://web.dev/articles/cls?hl=en" target="_blank">
+      圖片來源：web.dev — Cumulative Layout Shift
+    </a>
+  </figcaption>
+</figure>
+
+## 快速回顧
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="question-1">
+    <AccordionTrigger>
+      LCP(Largest Contentful Paint)需幾秒以內完成繪製?
+    </AccordionTrigger>
+    <AccordionContent>需在 2.5 秒以內完成繪製</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-2">
+    <AccordionTrigger>
+      INP(Interaction to Next Paint)需幾毫秒內完成使用者操作後的繪製?
+    </AccordionTrigger>
+    <AccordionContent>需在 200 毫秒以內完成繪製</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-3">
+    <AccordionTrigger>
+      CLS(Cumulative Layout Shift)的偏移量需低於多少以下?
+    </AccordionTrigger>
+    <AccordionContent>累積位移分數需低於 0.1</AccordionContent>
+  </AccordionItem>
+</Accordion>
