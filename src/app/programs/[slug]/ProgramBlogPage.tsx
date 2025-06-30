@@ -1,7 +1,15 @@
+import Image from 'next/image';
 import { MDXRemote, type MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
 import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from 'rehype-highlight';
 import { postList, postWithSlug } from '@/utils/getPostData';
+
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion';
 
 export function generateStaticParams() {
   return postList.map(({ slug }) => ({ slug }));
@@ -19,7 +27,7 @@ export default async function ProgramBlogPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const { content } = postWithSlug(slug);
+  const { data, content } = postWithSlug(slug);
 
   const options: MDXRemoteOptions = {
     mdxOptions: {
@@ -28,8 +36,22 @@ export default async function ProgramBlogPage({
   };
 
   return (
-    <article className="prose prose-pre:bg-[#0d1117] mx-auto max-w-[80ch]">
-      <MDXRemote source={content} options={options} />
+    <article className="prose prose-pre:bg-[#0d1117] max-w-full">
+      <h1>{data.title}</h1>
+      <span>
+        最後更新日期：<time>{data.date}</time>
+      </span>
+      <Image src={data.openGraph} alt={data.title} width={1000} height={100} />
+      <MDXRemote
+        source={content}
+        options={options}
+        components={{
+          Accordion,
+          AccordionContent,
+          AccordionItem,
+          AccordionTrigger,
+        }}
+      />
     </article>
   );
 }

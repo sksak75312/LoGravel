@@ -19,7 +19,7 @@ export default function PostCard({
 }) {
   return (
     <Link
-      href={`programs/${href}`}
+      href={`/programs/${href}`}
       className="group flex h-full flex-col overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
     >
       <Image src={image} alt={title} width={416} height={250} />

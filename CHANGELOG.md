@@ -1,5 +1,22 @@
 # CHANGELOG
 
+## 0.1.6 ( 2025-06-30 )
+
+### feat
+
+- 新增 Shadcn UI 的 Accordion 元件，並修改部分樣式
+- 調整 BlogLayout 排版和 BlogPage 顯示文章標題、最後修改時間時間和 Image 圖片顯示
+- 新增 Google Core Web Vitals 文章
+
+### fix
+
+- 修正 PostCard 元件路徑寫錯，增加 /
+- 根目錄 layout.tsx 的 description 修改一個字
+
+### style
+
+- Header 新增 Hover 效果、Padding Y軸縮小，Nav 列表改動態渲染方式
+
 ## 0.1.5 ( 2025-06-14 )
 
 ### feat
