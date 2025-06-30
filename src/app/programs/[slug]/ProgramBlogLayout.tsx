@@ -5,7 +5,7 @@ import ArticleTOC from '@/components/ArticleTOC';
 export default async function ProgramBlogLayout({
   children,
   params,
-}: Readonly<{ children: ReactNode; params: { slug: string } }>) {
+}: Readonly<{ children: ReactNode; params: Promise<{ slug: string }> }>) {
   const { slug } = await params;
 
   return (
