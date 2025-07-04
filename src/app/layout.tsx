@@ -1,9 +1,10 @@
-import type { Metadata } from 'next';
 import { Noto_Sans_TC, Noto_Serif_TC, Space_Grotesk } from 'next/font/google';
-import '@/styles/globals.css';
+import type { Metadata } from 'next';
 
 import GlobalHeader from '@/components/GlobalHeader';
 import GlobalFooter from '@/components/GlobalFooter';
+
+import '@/styles/globals.css';
 
 const notoSansTc = Noto_Sans_TC({
   variable: '--font-noto-sans-tc',

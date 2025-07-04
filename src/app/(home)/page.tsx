@@ -1,7 +1,8 @@
 import Link from 'next/link';
-import { PostCard } from '@/components/PostCard';
 
+import { PostCard } from '@/components/PostCard';
 import { ListContainer, ListItem } from '@/components/ListLayout';
+
 import { postList } from '@/utils/getPostData';
 
 export default function Home() {
