@@ -1,5 +1,24 @@
 # CHANGELOG
 
+## 0.1.7 ( 2025-07-04 )
+
+### feat
+
+- 新增 robots.txt 和 sitemap.ts 檔案，提高 SEO 搜尋
+- 新增 LD-JSON
+- Home Layout 拆至 Group Route
+- 新增 LdJson 元件
+- 設定首頁 Metadata，使用 Next Metadata 物件方式
+- 設定單一文章 Metadata，使用 Next generateMetadata function
+
+### fix
+
+- 修改 BlogLayout.tsx 傳入 params 參數為 Promise 泛型
+
+### style
+
+- 執行一次 prettier format 讓所有檔案符合相同程式碼風格
+
 ## 0.1.6 ( 2025-06-30 )
 
 ### feat
