@@ -55,6 +55,9 @@ export async function generateMetadata({
     openGraph: {
       images: [data.openGraph],
     },
+    alternates: {
+      canonical: `/programs/${data.slug}`,
+    },
   };
 }
 
