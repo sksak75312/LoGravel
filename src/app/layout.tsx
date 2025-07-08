@@ -43,8 +43,7 @@ export const metadata: Metadata = {
     'LoGravel',
   ],
   authors: [
-    { name: '焦冠儒' },
-    { name: 'EeroChiao', url: 'https://github.com/sksak75312' },
+    { name: '焦冠儒, Eero Chiao', url: 'https://github.com/sksak75312' },
   ],
   creator: 'LoGravel',
   publisher: 'LoGravel',
