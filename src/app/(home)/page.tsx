@@ -14,10 +14,10 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
-// import { PostCard } from '@/components/PostCard';
-// import { ListContainer, ListItem } from '@/components/ListLayout';
+import { PostCard } from '@/components/PostCard';
+import { ListContainer, ListItem } from '@/components/ListLayout';
 
-// import { postList } from '@/utils/getPostData';
+import { postList } from '@/utils/getPostData';
 
 export default function Home() {
   return (
@@ -74,28 +74,23 @@ export default function Home() {
             </div>
           </div>
         </section>
-        {/* <section className="container my-20">
-          <h3 className="font-noto-serif-tc mb-6 text-center text-[40px] font-bold">
-            最新文章
-          </h3>
+        <section className="container my-20">
+          <div className="relative text-center">
+            <h3 className="text-primary mb-20 text-5xl leading-[1.5] font-medium sm:text-6xl md:text-6xl">
+              最新文章
+              <span className="bg-primary absolute -bottom-6 left-1/2 block h-1 w-3/12 -translate-x-1/2 md:w-1/12"></span>
+            </h3>
+          </div>
           <ListContainer wrap>
             {postList.slice(0, 7).map((post) => {
               return (
                 <ListItem key={post.slug}>
-                  <PostCard
-                    date={post.date}
-                    title={post.title}
-                    content={post.description}
-                    image={post.openGraph}
-                    href={post.slug}
-                    hashtag={post.keywords}
-                    category={post.category}
-                  />
+                  <PostCard {...post} />
                 </ListItem>
               );
             })}
           </ListContainer>
-        </section> */}
+        </section>
       </main>
     </>
   );
