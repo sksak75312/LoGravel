@@ -1,53 +1,66 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { Calendar, Tag } from 'lucide-react';
+
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Post } from '@/types/interface';
 
 export default function PostCard({
-  date,
-  hashtag,
   title,
-  content,
-  href,
-  image,
-}: {
-  date: string;
-  hashtag: string[];
-  title: string;
-  content: string;
-  href: string;
-  image: string;
-}) {
+  description,
+  date,
+  keywords,
+  openGraph,
+  slug,
+  category,
+}: Post) {
   return (
     <Link
-      href={`/programs/${href}`}
-      className="group flex h-full flex-col overflow-hidden rounded-[1.25rem] shadow-[0_0_2px_1px_rgba(0,0,0,0.20)] transition-all duration-300 hover:shadow-[0_0_4px_2px_rgba(0,0,0,0.20)]"
+      href={`/programs/${slug}`}
+      className="group bg-background inset-shadow-md hover:outline-primary flex h-full w-full flex-col overflow-hidden rounded-2xl border-1 bg-linear-to-br from-[#c7996b33] via-[#f5c7990d] to-transparent transition-all duration-300 hover:scale-[1.03] hover:outline-1"
     >
-      <Image src={image} alt={title} width={416} height={250} />
-      <div className="flex h-full grow flex-col p-4">
-        <div className="mb-2 flex items-center justify-between text-[#484848]">
-          <span className="text-base">{date}</span>
-          <div className="flex gap-2">
-            {hashtag.slice(0, 2).map((tag) => (
-              <span className="text-xl" key={tag}>
-                #{tag}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="mb-6 flex grow flex-col">
-          <h4 className="mb-2 text-[28px] font-bold">{title}</h4>
+      <div className="relative h-full overflow-hidden md:min-h-[200px] md:basis-1 lg:min-h-[250px]">
+        <Image
+          src={openGraph}
+          alt={title}
+          width={416}
+          height={250}
+          className="h-full w-full object-cover transition-all duration-300 group-hover:scale-[1.05]"
+        />
+        <Badge variant="design" className="absolute top-3 left-3 rounded-full">
+          {category}
+        </Badge>
+      </div>
+      <div className="flex h-full grow flex-col px-5 py-8 md:basis-2">
+        <span className="mb-4 flex items-center gap-x-2 text-base">
+          <Calendar size={14} className="text-sm" />
+          {date}
+        </span>
+        <div className="mb-10 flex grow flex-col">
+          <h4 className="mb-4 text-2xl font-bold text-white">{title}</h4>
           <p
-            className="overflow-hidden text-base text-[#484848]"
+            className="mb-3 overflow-hidden text-base"
             style={{
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: '2',
+              WebkitLineClamp: '3',
             }}
           >
-            {content}
+            {description}
           </p>
+          <div className="flex flex-wrap gap-2">
+            {keywords.slice(0, 3).map((tag) => (
+              <Badge variant="outline" key={tag}>
+                <span className="flex items-center gap-1 text-xs">
+                  <Tag size={12} />
+                  {tag}
+                </span>
+              </Badge>
+            ))}
+          </div>
         </div>
-        <Button className="ml-auto cursor-pointer rounded-full border-1 border-black bg-white text-black group-hover:bg-zinc-900 group-hover:text-white">
+        <Button size="sm" variant="design">
           閱讀全文
         </Button>
       </div>
