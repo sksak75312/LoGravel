@@ -1,5 +1,35 @@
 # CHANGELOG
 
+## 0.1.8 ( 2025-07-14 )
+
+### fix
+
+- 修正 ProgramBlogLayout 的 Metadata，將單一文章的連結設定為自己，不是指向首頁
+
+### refactor
+
+- 重構 PostCard component props 的參數名稱，讓元件可使用展開方式傳值進來
+
+### feat
+
+- 新增 ScrollIndicator 元件，用來顯示網頁滾動進度條
+- 新增 GlobalHeader 元件手機版
+- 新增 useWindowScroll Hook，提供網頁監聽滾動
+- 新增 next-themes 套件，目前預設 dark 版，light 版顏色尚未新增
+- 修正 ProgramsPage 資料傳入 PostCard 方法
+
+### style
+
+- 調整 GlobalHeader 樣式
+- 調整 GlobalFooter 樣式
+- 調整 home page 最新文章區塊樣式
+- 調整 Shadcn Ui 的 Button 元件樣式
+- 新增 Shadcn Ui 的 Badge 元件
+- 首頁主視覺調整
+- 重新調整 PostCard component 樣式
+- 修正 container 類別 padding 符合 ListLayout，避免網頁 X 軸出現
+- 文章 TOC 元件平板以下設備隱藏
+
 ## 0.1.7 ( 2025-07-04 )
 
 ### feat
