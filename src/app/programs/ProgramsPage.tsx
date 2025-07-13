@@ -12,19 +12,12 @@ export const metadata: Metadata = {
 export default function ProgramsPage() {
   return (
     <main className="container">
-      <section className="my-20">
+      <section className="mt-[calc(80px+64px)] mb-20">
         <ListContainer wrap>
           {postList.map((post) => {
             return (
               <ListItem key={post.slug}>
-                <PostCard
-                  date={post.date}
-                  title={post.title}
-                  content={post.description}
-                  image={post.openGraph}
-                  href={post.slug}
-                  hashtag={post.keywords}
-                />
+                <PostCard {...post} />
               </ListItem>
             );
           })}

@@ -7,3 +7,8 @@ export interface Post {
   slug: string;
   category: string;
 }
+
+export interface Page {
+  href: string;
+  text: string;
+}

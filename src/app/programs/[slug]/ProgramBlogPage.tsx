@@ -36,7 +36,7 @@ export default async function ProgramBlogPage({
   };
 
   return (
-    <article className="prose prose-pre:bg-[#0d1117] max-w-full">
+    <article className="prose dark:prose-invert prose-pre:bg-[#0d1117] max-w-full">
       <h1>{data.title}</h1>
       <span>
         最後更新日期：<time>{data.date}</time>

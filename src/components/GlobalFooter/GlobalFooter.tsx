@@ -1,7 +1,10 @@
 export default function GlobalFooter() {
   return (
-    <footer className="border-t-2 border-black py-4 text-center">
-      <p>© 2025 LoGravel. All Rights Reserved. </p>
+    <footer className="from-card to-card border-primary/20 border-t-2 bg-linear-to-br py-6 text-center">
+      <p>
+        © 2025 <span className="text-primary">LoGravel.</span> All Rights
+        Reserved.
+      </p>
     </footer>
   );
 }

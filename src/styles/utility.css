@@ -1,5 +1,5 @@
 @utility container {
-  @apply mx-auto w-full px-3;
+  @apply mx-auto w-full px-4;
 
   /* TailwindCSS 只會覆蓋已設定的 @media */
   @media (width >= 80rem) {
