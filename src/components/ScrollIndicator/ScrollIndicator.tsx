@@ -23,7 +23,7 @@ export default function ScrollIndicator() {
 
   return (
     <>
-      <div className="fixed top-0 left-0 h-0.5 w-full">
+      <div className="fixed top-0 left-0 z-[999] h-0.5 w-full">
         <span
           className="bg-primary block h-full w-full"
           style={{ translate: `${percent - 100}%` }}

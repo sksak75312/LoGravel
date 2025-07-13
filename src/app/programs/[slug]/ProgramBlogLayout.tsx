@@ -71,11 +71,11 @@ export default async function ProgramBlogLayout({
   return (
     <>
       <LdJson data={generateLdJsonData(data as Post)} />
-      <div className="container flex justify-end gap-5 pt-10 pb-20">
+      <div className="container flex justify-end gap-5 pt-[calc(64px+40px)] pb-20">
         <main className="basis-[85ch]">{children}</main>
         <ArticleTOC
           slug={slug}
-          className="sticky top-[120px] max-h-[calc(100dvh-120px)] basis-[250px] self-start overflow-auto"
+          className="hidden lg:sticky lg:top-[120px] lg:block lg:max-h-[calc(100dvh-120px)] lg:basis-[250px] lg:self-start lg:overflow-auto"
         />
       </div>
     </>

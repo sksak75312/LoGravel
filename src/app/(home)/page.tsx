@@ -66,11 +66,11 @@ export default function Home() {
                   <ArrowRight />
                 </Button>
               </Link>
-              <Link href="/" className="hidden w-2/5 md:block">
-                <Button variant="design" size="lg" className="w-full">
+              <div className="hidden w-2/5 md:block">
+                <Button variant="design" size="lg" className="w-full" disabled>
                   關於我
                 </Button>
-              </Link>
+              </div>
             </div>
           </div>
         </section>

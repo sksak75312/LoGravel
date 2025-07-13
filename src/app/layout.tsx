@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 
 import GlobalHeader from '@/components/GlobalHeader';
 import GlobalFooter from '@/components/GlobalFooter';
+import { ThemeProvider, ScrollIndicator } from '@/components';
 
 import '@/styles/globals.css';
 
@@ -60,13 +61,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-TW">
+    <html lang="zh-TW" suppressHydrationWarning>
       <body
         className={`${notoSansTc.variable} ${notoSerifTc.variable} ${spaceGrotesk.variable} antialiased`}
       >
-        <GlobalHeader />
-        {children}
-        <GlobalFooter />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          disableTransitionOnChange
+        >
+          <ScrollIndicator />
+          <GlobalHeader />
+          {children}
+          <GlobalFooter />
+        </ThemeProvider>
       </body>
     </html>
   );

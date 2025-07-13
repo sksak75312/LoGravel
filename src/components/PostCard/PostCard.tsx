@@ -20,7 +20,7 @@ export default function PostCard({
       href={`/programs/${slug}`}
       className="group bg-background inset-shadow-md hover:outline-primary flex h-full w-full flex-col overflow-hidden rounded-2xl border-1 bg-linear-to-br from-[#c7996b33] via-[#f5c7990d] to-transparent transition-all duration-300 hover:scale-[1.03] hover:outline-1"
     >
-      <div className="relative h-full overflow-hidden md:min-h-[200px] md:basis-1 lg:min-h-[250px]">
+      <div className="relative h-full overflow-hidden md:min-h-[200px] md:basis-1 lg:min-h-[250px] xl:min-h-[215px]">
         <Image
           src={openGraph}
           alt={title}
