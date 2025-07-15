@@ -75,7 +75,7 @@ export default async function ProgramBlogLayout({
         <main className="basis-[85ch]">{children}</main>
         <ArticleTOC
           slug={slug}
-          className="hidden lg:sticky lg:top-[120px] lg:block lg:max-h-[calc(100dvh-120px)] lg:basis-[250px] lg:self-start lg:overflow-auto"
+          className="hidden lg:sticky lg:top-[120px] lg:block lg:max-h-[calc(100dvh-120px)] lg:basis-[250px] lg:self-start lg:overflow-auto dark:text-white"
         />
       </div>
     </>
