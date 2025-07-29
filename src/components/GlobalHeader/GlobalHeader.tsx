@@ -42,10 +42,11 @@ export default function GlobalHeader() {
       })}
     >
       <div className="container flex items-center justify-between py-2">
-        <Link href="/" className="group transition-transform hover:scale-105">
-          <h1 className="font-space-grotesk text-primary group-hover:text-shadow-center text-[32px] font-bold transition-all duration-300">
-            LoGravel
-          </h1>
+        <Link
+          href="/"
+          className="font-space-grotesk text-primary hover:text-shadow-center text-[32px] font-bold transition-all duration-300 hover:scale-105"
+        >
+          LoGravel
         </Link>
         <nav className="hidden lg:flex lg:gap-7">
           {pages.map((page) => (
