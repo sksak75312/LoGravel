@@ -71,7 +71,7 @@ export default async function ProgramBlogLayout({
   return (
     <>
       <LdJson data={generateLdJsonData(data as Post)} />
-      <div className="container flex justify-end gap-5 pt-[calc(64px+40px)] pb-20">
+      <div className="container pt-[calc(64px+40px)] pb-20 lg:flex lg:justify-end lg:gap-5">
         <main className="basis-[85ch]">{children}</main>
         <ArticleTOC
           slug={slug}

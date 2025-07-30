@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { MDXRemote, type MDXRemoteOptions } from 'next-mdx-remote-client/rsc';
 import rehypeSlug from 'rehype-slug';
 import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 import { postList, postWithSlug } from '@/utils/getPostData';
 
 import {
@@ -32,6 +33,7 @@ export default async function ProgramBlogPage({
   const options: MDXRemoteOptions = {
     mdxOptions: {
       rehypePlugins: [rehypeSlug, rehypeHighlight],
+      remarkPlugins: [remarkGfm],
     },
   };
 
