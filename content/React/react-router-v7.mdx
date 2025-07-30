@@ -1,0 +1,286 @@
+---
+title: 'React Router Version7'
+description: 在網頁開發中，路由是 Web 應用程式的一項關鍵功能，它允許開發者可以透過路徑呈現不同的網頁內容給使用者，可能是一個 about、product 或是 article 等等。然而，此篇章所要介紹的 React Router 是用於 React 函式庫的路由，隨著時間推進，最新版本也已經到 Version 7。'
+keywords:
+  [
+    'React Router',
+    'Version7',
+    'React路由',
+    'React',
+    'route',
+    'React 框架路由',
+    'LoGravel',
+  ]
+date: '2025-07-31'
+openGraph: '/react-router-v7.png'
+slug: 'react-router-v7'
+category: 'React'
+---
+
+## 前言
+
+在網頁開發中，路由是 Web 應用程式的一項關鍵功能，它允許開發者可以透過路徑呈現不同的網頁內容給使用者，可能是一個 about、product 或是 article 等等。然而，此篇章所要介紹的 React Router 是用於 React 函式庫的路由，隨著時間推進，最新版本也已經到 Version 7。
+
+## React Router 是什麼?
+
+React Router 是 React 的路由核心套件，而 **React-Router-DOM** 與 **React-Router-Native** 皆是基於此套件擴展建構的。
+
+- **<a href="https://www.npmjs.com/package/react-router-dom" target="_blank" rel="noopener noreferrer">React-Router-DOM</a>：適用於 Web 開發**
+
+- **<a href="https://www.npmjs.com/package/react-router-native" target="_blank" rel="noopener noreferrer">React-Router-Native</a>：適用於 App 開發**
+
+在前端網頁開發中許多的文章及教學影片當中，會看到設定 React 路由需要同時安裝 React Router 及 React Router DOM 這兩個套件，但最新版本的 React Router 已經將兩個套件整合為單一套件，因此，開發者只需要專注使用 React Router 並匯出相關 hooks 進行路由控制即可。
+
+react-router-dom 在 npm 上也說明它只是重新在 react-router 匯出並簡化匯入路徑。
+![](/react-router-dom.png)
+
+---
+
+## React Router 使用
+
+**安裝指令**
+
+```jsx
+npm i react-router
+// or
+pnpm add react-router
+```
+
+React Router 設定方式有 Framework mode、Data mode 及 Declarative mode 三種，此篇文章將介紹 Data 和 Declarative 兩種的設定及如何選擇。而 Framework mode 筆者目前尚未使用過，若有需要可參考官方文件。
+
+| Framework mode 是在 v7.0 版本中新增的功能，所以在查看 v7 以下的版本時，會無法看到相關內容。
+
+### Declarative Mode (聲明模式)
+
+- 傳統 React Router 路由的撰寫方式，使用 `Routes` 及 `Route` 元件嵌套的方式建構路由。
+- 適合用於小型專案，方便快速使用。
+- 提供 `BrowserRouter`、`HashRouter` 等路由元件。
+
+需在 `main.jsx/tsx` 檔案中設定 `BrowserRouter` 或 `HashRouter` 路由模式。
+
+```tsx
+// main.tsx
+import { createRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router';
+import App from './App.tsx';
+
+createRoot(document.getElementById('root')!).render(
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+);
+```
+
+---
+
+使用 `Routes` 及 `Route` 嵌套方式設定路由，而有時會區分前台與後台，它們兩者的 `Layout` 通常都有所不同，所以在下面範例會看到 `FrontLayout` 及 `BackLayout`，並在裡面嵌套各自需要的頁面元件。
+
+Route 元件則需要給定 path 及 element 兩個屬性，path 是設定路由的路徑，element 則是設定當前路由被訪問時的元件。
+
+```tsx
+// App.tsx
+import { Routes, Route } from 'react-router';
+
+import FrontLayout from './pages/FrontLayout';
+import HomePage from './pages/HomePage';
+
+import BackLayout from './pages/BackLayout';
+import BackProductsPage from './pages/BackProductsPage';
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<FrontLayout />}>
+        <Route index element={<HomePage />} />
+      </Route>
+      <Route path="/back" element={<BackLayout />}>
+        <Route path="products" element={<BackProductsPage />}></Route>
+      </Route>
+    </Routes>
+  );
+}
+
+export default App;
+```
+
+---
+
+從 `react-router` 引入 `NavLink` Component，並透過手動方式將頁面路徑添加到 Header Component 中
+
+NavLink component 需要設定 `to` 屬性，這個屬性是告訴該按鈕要導航到哪個路徑。
+
+```tsx
+// header.tsx
+import { NavLink } from 'react-router';
+
+export default function Header() {
+  return (
+    <header>
+      <nav>
+        <NavLink to="/">Home</NavLink>
+        <NavLink to="/about">About</NavLink>
+        <NavLink to="/products">Products</NavLink>
+      </nav>
+    </header>
+  );
+}
+```
+
+---
+
+### Data Mode (資料模式)
+
+> React Router v6.4+新增的路由方式，如果讀者有在寫 Vue 的話，他跟 vue-router 的寫法類似。
+
+- 官方推薦 Web 應用程式使用 Data mode，它提供更強大的功能。
+- 提供 `createBrowserRouter`、`createHashRouter` 等函式創建路由。
+- 適合用於中大型專案，方便集中管理及擴展。
+- 新增多項 Data API，如 `loader`、`action`、`fetchers` 等。
+
+需創建一支檔案用來管理整個網站的路由，通常會搭配新增 router 資料夾，並將設定路由的檔案命名為 `index.jsx/tsx`，這樣在引入 router 檔案時，可以簡化一些路徑。
+
+從 `react-router` 引入 `createBrowserRouter` 或 `createHashRouter` 函式，並傳入一個陣列包物件的格式，該物件包含許多屬性，下面條列說明幾個重要的屬性。
+
+- `path`：設定路由的路徑。
+- `element`：設定該路由被訪問時的渲染元件。
+- `errorElement`：設定當路由發生錯誤時需要渲染的元件。
+- `children`：用於設定子路由的屬性，該值也是陣列包物件的格式，並傳入`path`、`element` 等屬性。
+- `handle`：用於設定自定義的參數。下面範例使用該屬性設定該路由的名稱及是否顯示。
+
+```tsx
+// router/index.tsx
+import { createBrowserRouter } from 'react-router';
+
+import FrontLayout from '../pages/FrontLayout';
+import HomePage from '../pages/HomePage';
+
+import BackLayout from '../pages/BackLayout';
+import BackProductsPage from '../pages/BackProductsPage';
+
+import BackUsersIcon from '../components/icons/BackUsersIcon';
+
+// 路由表定義
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <FrontLayout />,
+    errorElement: <FrontErrorPage />,
+    children: [
+      {
+        path: '',
+        element: <HomePage />,
+        handle: { name: 'Home', show: true },
+      },
+      {
+        path: 'products',
+        element: <ProductsPage />,
+        handle: { name: 'Products', show: true },
+      },
+      {
+        // 動態路由設定
+        path: 'products/:slug',
+        element: <SingleProductPage />,
+        handle: { name: 'Single Product', show: false },
+      },
+    ],
+  },
+  {
+    path: '/back',
+    element: <BackLayout />,
+    children: [
+      {
+        path: 'products',
+        element: <BackProductsPage />,
+        handle: { name: 'Products', show: true, icon: <BackUsersIcon /> },
+      },
+    ],
+  },
+]);
+
+export default router;
+```
+
+---
+
+將設定好的 router 檔案引入 app 元件，告訴 app 此應用程式使用該 router 設定，並透過 `createBrowserRouter` 、 `createHashRouter` 等函式回傳的 router object 傳入給 `RouterProvider` 元件。
+
+```tsx
+// App.tsx
+import { RouterProvider } from 'react-router';
+import router from './router';
+
+function App() {
+  return <RouterProvider router={router} />;
+}
+
+export default App;
+```
+
+---
+
+使用 router 回傳的 object 可以取用到完整的 routes，並且在 header 元件中使用動態渲染的方式將定義好的路由表渲染到畫面上。這裡可以搭配條件回傳一個新資料結構後渲染，下方的範例使用 `filter` 方法取得前台的路由。
+
+```tsx
+// header.tsx
+import { NavLink } from 'react-router';
+
+import router from '../router';
+
+export default function Header() {
+  const frontNavList = router.routes
+    .find((item) => item.path === '/')
+    ?.children?.filter((item) => item.handle.show);
+
+  return (
+    <header>
+      <nav>
+        <div>
+          {frontNavList?.map((nav) => (
+            <NavLink
+              key={nav.path}
+              to={nav.path as string}
+              className={({ isActive }) =>
+                `hover:text-thirdary text-sm/6 font-bold ${isActive ? 'front-active' : ''}`
+              }
+            >
+              {nav.handle.name}
+            </NavLink>
+          ))}
+        </div>
+      </nav>
+    </header>
+  );
+}
+```
+
+## Declarative vs. Data
+
+| 特性     | Declarative mode         | Data mode                              |
+| -------- | ------------------------ | -------------------------------------- |
+| 新舊程度 | 舊                       | 新                                     |
+| 使用方式 | 使用元件定義路由         | 使用函式傳入路由結構                   |
+| 適用場景 | 適用於簡單路由，小型專案 | 適用於複雜應用，中大型專案             |
+| 方便性   | 低，無法直接動態渲染     | 高，定義好路由，可透過回傳物件動態渲染 |
+
+## 快速回顧
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="question-1">
+    <AccordionTrigger>
+      哪一種路由設定方式可以使用動態渲染?
+    </AccordionTrigger>
+    <AccordionContent>Data Mode (資料模式)</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-2">
+    <AccordionTrigger>
+      適用於小型專案，並且可以快速建構為何者?
+    </AccordionTrigger>
+    <AccordionContent>Declarative Mode (聲明模式)</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-3">
+    <AccordionTrigger>
+      何者路由定義方式，建議創建檔案方便管理?
+    </AccordionTrigger>
+    <AccordionContent>Data Mode (資料模式)。並且將 createBrowserRouter 或 createHashRouter 傳入陣列包物件格式</AccordionContent>
+  </AccordionItem>
+</Accordion>
