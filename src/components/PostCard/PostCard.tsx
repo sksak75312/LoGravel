@@ -9,7 +9,7 @@ import { Post } from '@/types/interface';
 export default function PostCard({
   title,
   description,
-  date,
+  updatedAt,
   keywords,
   openGraph,
   slug,
@@ -35,7 +35,7 @@ export default function PostCard({
       <div className="flex h-full grow flex-col px-5 py-8 md:basis-2">
         <span className="mb-4 flex items-center gap-x-2 text-base">
           <Calendar size={14} className="text-sm" />
-          {date}
+          <time dateTime={updatedAt}>{updatedAt}</time>
         </span>
         <div className="mb-10 flex grow flex-col">
           <h4 className="mb-4 text-2xl font-bold text-white">{title}</h4>
