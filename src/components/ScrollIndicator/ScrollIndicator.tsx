@@ -7,12 +7,13 @@ export default function ScrollIndicator() {
 
   useEffect(() => {
     const listenerScroll = () => {
-      const { scrollTop, scrollHeight, clientHeight } =
+      const { scrollTop, offsetHeight, clientHeight } =
         document.documentElement;
 
-      const canScrollHeight = scrollHeight - clientHeight;
+      const canScrollHeight = offsetHeight - clientHeight;
+      const calcPercent = Math.ceil((scrollTop / canScrollHeight) * 100);
 
-      setPercent((scrollTop / canScrollHeight) * 100);
+      setPercent(calcPercent >= 100 ? 100 : calcPercent);
     };
 
     window.addEventListener('scroll', listenerScroll, { passive: true });

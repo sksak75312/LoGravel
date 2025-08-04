@@ -19,7 +19,7 @@ export function generateStaticParams() {
 export const dynamicParams = false;
 
 /**
- * TODO 使用 NodeJS 的 fs 功能取得檔案資料，並透過  MDXRemote 元件渲染畫面
+ * @description 使用 NodeJS 的 fs 功能取得檔案資料，並透過  MDXRemote 元件渲染畫面
  */
 
 export default async function ProgramBlogPage({
@@ -38,11 +38,17 @@ export default async function ProgramBlogPage({
   };
 
   return (
-    <article className="prose dark:prose-invert prose-pre:bg-[#0d1117] max-w-full dark:text-white">
+    <article className="prose dark:prose-invert prose-pre:bg-[#0d1117] prose-h1:mb-2 max-w-full dark:text-white">
       <h1>{data.title}</h1>
-      <span>
-        最後更新日期：<time>{data.date}</time>
-      </span>
+      <div className="text-foreground/90">
+        <span>
+          最後更新：<time dateTime={data.updatedAt}>{data.updatedAt}</time>
+        </span>
+        ·
+        <span>
+          發布日期：<time dateTime={data.publishedAt}>{data.publishedAt}</time>
+        </span>
+      </div>
       <Image src={data.openGraph} alt={data.title} width={1000} height={100} />
       <MDXRemote
         source={content}

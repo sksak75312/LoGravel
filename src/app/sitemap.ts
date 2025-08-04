@@ -8,7 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const singlePostSitemap: MetadataRoute.Sitemap = postList.map((post) => {
     return {
       url: `https://www.logravel.com/programs/${post.slug}`,
-      lastModified: new Date(post.date).toISOString(),
+      lastModified: new Date(post.updatedAt).toISOString(),
       changeFrequency: 'weekly' as const,
       priority: 0.5,
     };

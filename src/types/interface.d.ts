@@ -1,7 +1,8 @@
 export interface Post {
   title: string;
   description: string;
-  date: string;
+  publishedAt: string;
+  updatedAt: string;
   keywords: string[];
   openGraph: string;
   slug: string;

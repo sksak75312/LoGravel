@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 0.1.9 ( 2025-08-05 )
+
+### fix
+
+- 修正 header component 的 Logo 標籤，將 h1 移除，因搭配文章頁面標題符合SEO
+- 修改 ScrollIndicator 元件的計算方式，增加 Math.ceil
+
+### feat
+
+- 修改 Post TS 型別，將單一 date 改為 publishedAt 及 updatedAt，包含同時修改使用 date 的檔案
+- 新增 remarkPlugins 功能，使用 remarkGfm 套件
+- 修改首頁 LD-JSON name 值
+
+### style
+
+- 修改樣式斷點，處理手機版不會響應式
+
+### chore
+
+- 新增 remarkGfm 套件，用於解析 MDX 文件內容
+
 ## 0.1.8 ( 2025-07-14 )
 
 ### fix

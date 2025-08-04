@@ -5,7 +5,7 @@ import { LdJson } from '@/components/LdJson';
 const LdJsonData: WithContext<WebSite> = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: '分享與紀錄，成為更好的開發人員 | LoGravel',
+  name: 'LoGravel',
   url: 'https://www.logravel.com/',
   alternateName: 'LoGravel', // 網站簡稱或別名
   description:
