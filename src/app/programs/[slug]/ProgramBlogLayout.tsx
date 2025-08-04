@@ -28,8 +28,8 @@ function generateLdJsonData(data: Post): WithContext<Article> {
       },
     },
     description: data.description,
-    datePublished: new Date(data.date).toISOString(),
-    dateModified: new Date(data.date).toISOString(),
+    datePublished: new Date(data.publishedAt).toISOString(),
+    dateModified: new Date(data.updatedAt).toISOString(),
     mainEntityOfPage: {
       '@type': 'WebPage',
       '@id': `https://www.logravel.com/programs/${data.slug}`,
