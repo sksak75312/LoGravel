@@ -1,10 +1,10 @@
 ---
-title: 'React Router Version7'
-description: 在網頁開發中，路由是 Web 應用程式的一項關鍵功能，它允許開發者可以透過路徑呈現不同的網頁內容給使用者，可能是一個 about、product 或是 article 等等。然而，此篇章所要介紹的 React Router 是用於 React 函式庫的路由，隨著時間推進，最新版本也已經到 Version 7。'
+title: 'React Router Version 7 介紹'
+description: 在網頁開發中，路由是 Web 應用程式的一項關鍵功能，它允許開發者可以透過路徑呈現不同的網頁內容給使用者，可能是一個 about、product 或是 article 等。然而，此篇章所要介紹的 React Router 是用於 React 函式庫的路由，並隨著時間推進，最新版本也已經到 Version 7。'
 keywords:
   [
     'React Router',
-    'Version7',
+    'Version 7',
     'React路由',
     'React',
     'route',
@@ -12,7 +12,7 @@ keywords:
     'LoGravel',
   ]
 publishedAt: '2025-07-31'
-updatedAt: '2025-07-31'
+updatedAt: '2025-08-12'
 openGraph: '/react-router-v7.png'
 slug: 'react-router-v7'
 category: 'React'
@@ -20,7 +20,7 @@ category: 'React'
 
 ## 前言
 
-在網頁開發中，路由是 Web 應用程式的一項關鍵功能，它允許開發者可以透過路徑呈現不同的網頁內容給使用者，可能是一個 about、product 或是 article 等等。然而，此篇章所要介紹的 React Router 是用於 React 函式庫的路由，隨著時間推進，最新版本也已經到 Version 7。
+在網頁開發中，路由是 Web 應用程式的一項關鍵功能，它允許開發者可以透過路徑呈現不同的網頁內容給使用者，可能是一個 about、product 或是 article 等。然而，此篇章所要介紹的 React Router 是用於 React 函式庫的路由，並隨著時間推進，最新版本也已經到 Version 7。
 
 ## React Router 是什麼?
 
@@ -30,9 +30,9 @@ React Router 是 React 的路由核心套件，而 **React-Router-DOM** 與 **Re
 
 - **<a href="https://www.npmjs.com/package/react-router-native" target="_blank" rel="noopener noreferrer">React-Router-Native</a>：適用於 App 開發**
 
-在前端網頁開發中許多的文章及教學影片當中，會看到設定 React 路由需要同時安裝 React Router 及 React Router DOM 這兩個套件，但最新版本的 React Router 已經將兩個套件整合為單一套件，因此，開發者只需要專注使用 React Router 並匯出相關 hooks 進行路由控制即可。
+在前端網頁開發中許多的文章及教學影片當中，會看到設定 React Router 需要同時安裝 React Router 及 React Router DOM 這兩個套件，但最新版本的 React Router 已經將兩個套件整合為單一套件，因此，開發者只需要專注使用 React Router 並匯出相關 hook 進行路由控制即可。
 
-react-router-dom 在 npm 上也說明它只是重新在 react-router 匯出並簡化匯入路徑。
+react-router-dom 在 npm 說明它只是從 react-router 上重新匯出提供使用，並且更新後可以簡化匯入的路徑。
 ![](/react-router-dom.png)
 
 ---
@@ -74,7 +74,7 @@ createRoot(document.getElementById('root')!).render(
 
 ---
 
-使用 `Routes` 及 `Route` 嵌套方式設定路由，而有時會區分前台與後台，它們兩者的 `Layout` 通常都有所不同，所以在下面範例會看到 `FrontLayout` 及 `BackLayout`，並在裡面嵌套各自需要的頁面元件。
+使用 `Routes` 及 `Route` 嵌套方式設定路由，有時會區分前台與後台，它們兩者的 `Layout` 通常都有所不同，所以在下面範例會看到 `FrontLayout` 及 `BackLayout`，並在裡面嵌套各自需要的頁面元件。
 
 Route 元件則需要給定 path 及 element 兩個屬性，path 是設定路由的路徑，element 則是設定當前路由被訪問時的元件。
 
@@ -168,7 +168,7 @@ const router = createBrowserRouter([
     errorElement: <FrontErrorPage />,
     children: [
       {
-        path: '',
+        index: true,
         element: <HomePage />,
         handle: { name: 'Home', show: true },
       },
@@ -203,7 +203,7 @@ export default router;
 
 ---
 
-將設定好的 router 檔案引入 app 元件，告訴 app 此應用程式使用該 router 設定，並透過 `createBrowserRouter` 、 `createHashRouter` 等函式回傳的 router object 傳入給 `RouterProvider` 元件。
+將設定好的 router 檔案引入 app 元件，告訴 app 此應用程式使用哪個 router 設定，並透過 `createBrowserRouter` 、 `createHashRouter` 等函式回傳的 router object 傳入給 `RouterProvider` 元件。
 
 ```tsx
 // App.tsx
@@ -262,6 +262,8 @@ export default function Header() {
 | 使用方式 | 使用元件定義路由         | 使用函式傳入路由結構                   |
 | 適用場景 | 適用於簡單路由，小型專案 | 適用於複雜應用，中大型專案             |
 | 方便性   | 低，無法直接動態渲染     | 高，定義好路由，可透過回傳物件動態渲染 |
+
+對於筆者來說，筆者自己是喜歡使用新的 Data mode 的方式來開發，因為可以把它們的職責、檔案區分開來，並且在需要使用 Router 的資料時，可以直接從回傳的 Object 取得，透過資料操作、動態渲染的方式快速設定到畫面上。
 
 ## 快速回顧
 
