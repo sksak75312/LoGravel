@@ -3,3 +3,4 @@ export * from './ThemeProvider';
 export * from './Hamburger';
 export * from './HamburgerMenu';
 export * from './ScrollIndicator';
+export * from './ScrollTop';

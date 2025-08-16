@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 
 import GlobalHeader from '@/components/GlobalHeader';
 import GlobalFooter from '@/components/GlobalFooter';
-import { ThemeProvider, ScrollIndicator } from '@/components';
+import { ThemeProvider, ScrollIndicator, ScrollTop } from '@/components';
 
 import '@/styles/globals.css';
 
@@ -71,6 +71,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ScrollIndicator />
+          <ScrollTop />
           <GlobalHeader />
           {children}
           <GlobalFooter />
