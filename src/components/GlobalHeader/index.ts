@@ -1,3 +1,1 @@
-import GlobalHeader from './GlobalHeader';
-
-export default GlobalHeader;
+export { default as GlobalHeader } from './GlobalHeader';

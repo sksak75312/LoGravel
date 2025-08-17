@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import { ListContainer, ListItem } from '@/components/ListLayout';
-import { PostCard } from '@/components/PostCard';
+import { PostCard } from '@/components';
 import { postList } from '@/utils/getPostData';
 
 export const metadata: Metadata = {

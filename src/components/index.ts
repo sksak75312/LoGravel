@@ -4,3 +4,7 @@ export * from './Hamburger';
 export * from './HamburgerMenu';
 export * from './ScrollIndicator';
 export * from './ScrollTop';
+export * from './GlobalHeader';
+export * from './GlobalFooter';
+export * from './LdJson';
+export * from './PostCard';

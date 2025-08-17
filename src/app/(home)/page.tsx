@@ -14,7 +14,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
-import { PostCard } from '@/components/PostCard';
+import { PostCard } from '@/components';
 import { ListContainer, ListItem } from '@/components/ListLayout';
 
 import { postList } from '@/utils/getPostData';
