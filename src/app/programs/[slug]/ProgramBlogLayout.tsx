@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { WithContext, Article } from 'schema-dts';
 
 import ArticleTOC from '@/components/ArticleTOC';
-import { LdJson } from '@/components/LdJson';
+import { LdJson } from '@/components';
 
 import { postWithSlug } from '@/utils/getPostData';
 

@@ -1,5 +1,20 @@
 # CHANGELOG
 
+## 0.1.10 ( 2025-08-17 )
+
+### feat
+
+- 新增 ScrollTop 元件
+- 新增 ArticleTOC.client 元件，顯示使用者當前閱讀區塊
+
+### style
+
+- 修改元件 import 及 export 方式
+
+### docs
+
+- 更新 README 內容
+
 ## 0.1.9 ( 2025-08-05 )
 
 ### fix
