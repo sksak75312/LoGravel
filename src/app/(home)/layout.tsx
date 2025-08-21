@@ -1,6 +1,6 @@
 import { WithContext, WebSite, SearchAction } from 'schema-dts';
 
-import { LdJson } from '@/components/LdJson';
+import { LdJson } from '@/components';
 
 const LdJsonData: WithContext<WebSite> = {
   '@context': 'https://schema.org',
