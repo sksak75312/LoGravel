@@ -1,0 +1,135 @@
+---
+title: 'JavaScript 原始型別與物件型別'
+description: 'JavaScript 型別有兩大類，分別是原始型別(primitive types)、物件型別(object types)，一般會搭配一元運算子中的 typeof 取得資料型別的類型，但因為 JavaScript 是一門歷史悠久的程式語言，在某些型別使用 typeof 會有不如預期的型別回傳，例如：typeof null === object，此時需要使用別種方式來檢查值。'
+keywords:
+  [
+    'JavaScript',
+    'Primitive Types',
+    'Object Types',
+    'Interview',
+    '原始型別',
+    '物件型別',
+    'LoGravel',
+  ]
+publishedAt: '2025-08-22'
+updatedAt: '2025-08-22'
+openGraph: '/javascript-interview.png'
+slug: 'javascript-data-types'
+category: 'Interview'
+---
+
+## 前言
+
+JavaScript 型別有兩大類，分別是原始型別(primitive type)、物件型別(data type)，一般會搭配一元運算子中的 typeof 取得資料型別的類型，但因為 JavaScript 是一門歷史悠久的程式語言，在某些型別使用 typeof 會有不如預期的型別回傳，例如：typeof null === 'object'，此時需要使用別種方式來檢查值。
+
+## 原始型別 (Primitive types)
+
+- 字串(string)
+- 數值(number)
+- 布林值(boolean)
+- undefined
+- null
+- Symbol
+- BigInt
+
+### 字串(string)
+
+字串在眾多程式語言當中是基本的值，而在 JavaScript 中可以使用基本的雙引號 `""` 、單引號 `''` 或樣板字面值包覆一段內容，然後，賦予給一個常數或是變數。
+
+```javascript
+const str1 = '單引號';
+
+let str2 = "雙引號";
+
+const str3 = `樣板字面值`;
+```
+
+### 數值(number)
+
+數值在 JavaScript 當中只有一種型別，不會區分為**整數**及**浮點數**，使用 typeof 檢查都會回傳 number 型別。
+
+而在不正常的數值運算中，也會出現 `NaN` 的值，全部叫做 `Not a Number` 該值也被認為是一個 `number`，如要確保是不是 NaN，可以使用 `isNaN()`。
+
+```javascript
+const num1 = 10;
+const num2 = 3.14;
+```
+
+### 布林值(boolean)
+
+```javascript
+const isYes = true;
+const isNo = false;
+```
+
+### undefined
+
+`undefined` 是未賦予值給變數時會出現的值，在 JavaScript 上會是使用 `let` 宣告變數時發生，而使用 `const` 一般情況下都會要求在宣告常數給予一個值，否則會丟出錯誤。
+
+### null
+
+`null` 被稱為空值，它是有賦予值的，或是清空變數時也會使用 `null`。
+
+### BigInt
+
+BigInt 也算是數值的一種，因為 JavaScript 在數值上有上限及下限的存在，介於 -(2^53-1) 到 2^53 -1 之間，超出這個範圍會失去精度，此時就需要使用 BigInt。而可以使用`Number.isSafeInteger()`檢查數字是否在安全整數範圍內。
+
+### Symbol
+
+Symbol 是一個唯一值，而該值的目的是使用在物件的 key 當中。
+
+## 物件型別 (Object type)
+
+- 物件(Object)
+- 陣列(Array)
+- 函式(Function)
+
+### 物件(Object)
+
+物件是一個 Key-value pair 雜湊表，一般會使用物件存放相關的資訊，但各自是描述該資訊可能會有的內容。它在記憶體位置中使用，會使用傳參考的方式來節省記憶體空間。
+
+```javascript
+const user = {
+  firstName: 'OOO',
+  lastName: 'XXX',
+  age: 18,
+};
+```
+
+### 陣列(Array)
+
+陣列(Array)是一種線性資料結構，在語義上是有序集合且以索引存取（index）。
+
+如果要檢查一個變數是否為陣列，不能使用 `typeof` 的一元運算子，追根究底就是當初 JavaScript 設計上的缺陷，讓陣列(Array)使用 `typeof` 會出現 `object` 的情況，現在也不易更改為正確的型別。所以在檢查變數是否為陣列時會使用 `Array.isArray()`。
+
+```javascript
+Array.isArray([3, 2, 1]); // true
+Array.isArray({ num: 321 }); // false
+```
+
+### 函式(Function)
+
+函式(Function)則會包含一段需要執行某項任務的語法，正常使用 typeof 會回傳 function 型別，但它也可以直接增加屬性，所以被歸類在 Object type 裡面。
+
+---
+
+## 快速回顧
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="question-1">
+    <AccordionTrigger>原始型別 (Primitive types) 包含哪些?</AccordionTrigger>
+    <AccordionContent>
+      string、number、boolean、undefined、null、BigInt、Symbol
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-2">
+    <AccordionTrigger>物件型別 (Object type) 包含哪些?</AccordionTrigger>
+    <AccordionContent>Object、Array、Function</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-3">
+    <AccordionTrigger>
+      陣列 (Array) 可以用哪個函式檢查是否為陣列?
+    </AccordionTrigger>
+    <AccordionContent>Array.isArray()</AccordionContent>
+  </AccordionItem>
+</Accordion>
