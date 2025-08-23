@@ -1,0 +1,182 @@
+---
+title: 'JavaScript 淺拷貝與深拷貝差異'
+description: '在 JavaScript 操作物件型別(Object types)時，若不想要修改到原始資料的情況下，就必須再考慮到使用淺拷貝(shallow copy)或深拷貝(deep copy)的問題，其主要原因是因為 JavaScript 的物件型別特性是參考址，然而，這兩者的差異需要看當下操作的資料層級，如單一層級 Object 就只需要使用淺拷貝，複數層有 Object 包 Object 的存在就需要使用深拷貝。'
+keywords:
+  [
+    'JavaScript',
+    'Shallow copy',
+    'Deep copy',
+    'Interview',
+    '淺拷貝',
+    '深拷貝',
+    'LoGravel',
+  ]
+publishedAt: '2025-08-23'
+updatedAt: '2025-08-23'
+openGraph: '/javascript-interview.png'
+slug: 'javascript-shallow-deep-copy'
+category: 'Interview'
+---
+
+## 前言
+
+在 JavaScript 操作物件型別(Object types)時，若不想要修改到原始資料的情況下，就必須再考慮到使用淺拷貝(shallow copy)或深拷貝(deep copy)的問題，其主要原因是因為 JavaScript 的物件型別特性是參考址，然而，這兩者的差異需要看當下操作的資料層級，如單一層級 Object 就只需要使用淺拷貝，複數層有 Object 包 Object 的存在就需要使用深拷貝。這邊說的有點抽象，下面講解淺、深拷貝及基本概念。
+
+## 單層與複數層概念
+
+單層概念就是一個物件的最頂層，也被稱做父層。複數層則是物件裡的某個屬性值也是物件型別(Object type)，此時被稱為子層。
+
+```javascript
+const data = {
+  // 外層，也被稱做父層
+  author: 'LoGravel',
+  view: 300,
+  isOpen: true,
+  article: {
+    // 內層，也被稱做子層
+    name: 'shallow、deep copy',
+    published: '12-31',
+  },
+};
+```
+
+## 淺拷貝(Shallow copy)
+
+淺層拷貝的概念就是指複製第一層的資料，子層以下的都是參考相同的記憶體位置，在改動資料時，子層資料會一起變動。
+
+### 展開運算子(Spread Operator)
+
+```javascript
+const data = {
+  one: 'one',
+  two: 2,
+  inside: {
+    three: 3,
+  },
+};
+
+const shallowCopy = { ...data }; // 淺層拷貝
+
+delete shallowCopy.one; // 刪除父層資料
+
+console.log(shallowCopy.one); // undefined
+console.log(data.one); // 'one'
+
+delete shallowCopy.inside.three; // 刪除子層資料
+console.log(shallowCopy.inside.three); // undefined
+console.log(data.inside.three); // undefined
+```
+
+### Object.assign()
+
+```javascript
+const data = {
+  one: 'one',
+  two: 2,
+  inside: {
+    three: 3,
+  },
+};
+
+const shallowCopy = Object.assign({}, data); // 淺層拷貝
+
+delete shallowCopy.one; // 刪除父層資料
+
+console.log(shallowCopy.one); // undefined
+console.log(data.one); // 'one'
+
+delete shallowCopy.inside.three; // 刪除子層資料
+console.log(shallowCopy.inside.three); // undefined
+console.log(data.inside.three); // undefined
+```
+
+### Array.from()
+
+```javascript
+const ary = [1, 2, { three: 3 }];
+
+const shallowCopy = Array.from(ary); // 淺層拷貝
+
+shallowCopy[0] = 'one'; // 賦予新值
+
+console.log(shallowCopy[0]); // 'one'
+console.log(ary[0]); // 1
+
+shallowCopy[2].three = 'three'; // 賦予新值
+console.log(shallowCopy[2].three); // 'three'
+console.log(ary[2].three); // 'three'
+```
+
+## 深拷貝(Deep Copy)
+
+在淺拷貝(Shallow Copy)時只會複製第一層資料，而深拷貝(Deep Copy)則會複製所有層級的資料，當改動深拷貝的資料時，原始資料不會受影響。
+
+### JSON.parse and JSON.stringify
+
+在使用此方法時會有部分的限制，就是 `stringify` 會轉換成序列化資料，而序列化資料只接受 `string`、`number`、`boolean`、`null`、`object`、`array`，所以在使用時，需要先確認轉換的資料格式是不是以上六項中的。而其他的 `undefined`、`function`、`symbol` 則會直接被丟棄。
+
+```javascript
+const data = {
+  one: 'one',
+  two: 2,
+  inside: {
+    three: 3,
+  },
+};
+
+const deepCopy = JSON.parse(JSON.stringify(data)); // 深拷貝
+
+delete deepCopy.inside.three; // 資料刪除
+
+console.log(deepCopy.inside.three); // undefined
+
+console.log(data.inside.three); // 3 (原始資料)
+```
+
+### structuredClone()
+
+```javascript
+const data = {
+  one: 'one',
+  two: 2,
+  inside: {
+    three: 3,
+  },
+};
+
+const deepCopy = structuredClone(data); // 深拷貝
+
+delete deepCopy.inside.three; // 資料刪除
+
+console.log(deepCopy.inside.three); // undefined
+
+console.log(data.inside.three); // 3 (原始資料)
+```
+
+## 快速回顧
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="question-1">
+    <AccordionTrigger>淺拷貝(Shallow copy) 可以使用哪些方法?</AccordionTrigger>
+    <AccordionContent>
+      <ul>
+        <li>展開運算子(Spread Operator)</li>
+        <li>Object.assign()</li>
+        <li>Array.from()</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-2">
+    <AccordionTrigger>深拷貝(Deep copy) 可以使用哪些方法?</AccordionTrigger>
+    <AccordionContent>
+      <ul>
+        <li>JSON.parse 和 JSON.stringify 搭配使用</li>
+        <li>structureClone()</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-3">
+    <AccordionTrigger>想要修改複數層資料，並且原始資料保持不變，該使用哪種拷貝方式?</AccordionTrigger>
+    <AccordionContent>深拷貝(Deep copy)</AccordionContent>
+  </AccordionItem>
+</Accordion>
