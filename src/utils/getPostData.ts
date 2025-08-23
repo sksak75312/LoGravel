@@ -23,7 +23,7 @@ export const postList = postCategories
   // 重新排列文章順序
   .flat()
   .sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+    (a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
   ) as Post[];
 
 export const postWithSlug = cache((slug: string) => {
