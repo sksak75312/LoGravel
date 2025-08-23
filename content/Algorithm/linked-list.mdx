@@ -1,0 +1,61 @@
+---
+title: '用 TypeScript 學習鏈結串列(Linked List)'
+description: '鏈結串列(Linked List) 是常見的資料結構，它常被拿來與陣列(Array)比較，本文會講述鏈結串列的基本概念，並使用 TypeScript 撰寫範例程式碼，及說明會碰到的資料操作(反轉、合併等)。'
+keywords:
+  [
+    'Data structure',
+    'Linked List',
+    'TypeScript',
+    '鏈結串列',
+    'Algorithm',
+    'Array vs. Linked List',
+    '資料結構',
+    'LoGravel',
+  ]
+publishedAt: '2025-08-12'
+updatedAt: '2025-08-12'
+openGraph: '/linked-list.png'
+slug: 'linked-list'
+category: 'Algorithm'
+---
+
+## 前言
+
+鏈結列表(Linked List)是一種線性的資料結構，但是以非連續性的方式儲存資料，則是透過每個節點去指向下一個節點的位置，每個節點基本會有兩個參數，分別為節點的值及下一個節點的位置。
+
+非連續性的資料儲存，就是每筆資料儲存在記憶中的不同位置，想的簡單一點就是各自分散在記憶體中，所以才需要透過節點去指向之後的節點位置。而有非連續性儲存資料就會有連續性的儲存資料，在程式中最常碰到的也最簡單的連續性儲存資料就是陣列(Array)，Array 會透過 index 的索引值 0,1,2,3...等來完成連續性儲存的特性。它們兩者也是最容易被拿來比較的，下面再來深入說明兩者的差別。
+
+### Linked List vs. Array
+
+### TypeScript 實作
+
+```tsx
+class ListNode<T> {
+  constructor(
+    public val: T,
+    public next: ListNode<T> | null = null,
+  ) {}
+}
+
+const n1 = new ListNode(1);
+const n2 = new ListNode(2);
+const n3 = new ListNode(3);
+const n4 = new ListNode(4);
+
+n1.next = n2;
+n2.next = n3;
+```
+
+### 單向鏈結串列
+
+### 雙向鏈結串列
+
+### 環狀鏈結串列
+
+## 常見鏈結串列操作
+
+### 反轉鏈結串列
+
+### 合併鏈結串列
+
+## 快速回顧
