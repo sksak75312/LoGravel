@@ -1,0 +1,137 @@
+---
+title: 'JavaScript Browser Event loop 如何運行?'
+description: 'JavaScript 是單執行緒語言，另一種說法叫做單線程，核心運行是同步的方式完成，而 JavaScript 可以靠著非同步的方式完成操作，則是因為 JavaScript 執行環境的關係，可能是 Browser 或 Node 環境，它們兩者分別提供 Web APIs 及 Node APIs，搭配 Event loop 的概念，讓 JavaScript 同步方式不會造成阻塞問題，而 Event loop 如何運行呢?'
+keywords:
+  [
+    'JavaScript',
+    'Event loop',
+    'Web APIs',
+    'Interview',
+    '事件循環',
+    'Browser',
+    'LoGravel',
+  ]
+publishedAt: '2025-08-24'
+updatedAt: '2025-08-24'
+openGraph: '/javascript-interview.png'
+slug: 'javascript-event-loop'
+category: 'Interview'
+---
+
+## 前言
+
+JavaScript 是單執行緒語言，另一種說法叫做單線程，核心運行是同步的方式完成，而 JavaScript 可以靠著非同步的方式完成操作，則是因為 JavaScript 執行環境的關係，可能是 Browser 或 Node 環境，它們兩者分別提供 Web APIs 及 Node APIs，搭配 Event loop 的概念，讓 JavaScript 同步方式不會造成阻塞問題，而 Event loop 如何運行呢?
+
+> Browser 跟 Node 的 Event loop 有些微差異，此篇文章講解 Browser
+
+## Event loop 經過區域
+
+- Heap(堆)：物件與閉包等配置的記憶體區域。
+- Stack(堆疊)：當有函式呼叫都會進入 Stack，特性是後進先出(LIFO)。在其它文章可能會跟 Heap 的堆搞混，但它們兩者是不相同的東西。
+- Task queues(任務佇列，俗稱 Macrotask; 宏任務)：存放宏任務的 Callback function，每輪只會執行一次，而屬於宏任務的有整體 `script` 腳本、`setTimeout`、`setInterval` 、I/O等，而 queue 的執行方式為先進先出(FIFO)。
+- Microtask queue(微任務佇列)：存放微任務的 Callback function，會優先於宏任務的 Callback function，每輪會完全清空，屬於微任務的有 `Promise.then`、`Promise.catch`、`Promise.finally`、`queueMicrotask`、`async await` 的 await 後續邏輯等，這也保持相同 Queue 的基本概念先進先出(FIFO)。
+- Event loop(事件循環)：不斷監聽 stack 是否為空，如為空後執行 Microtask 清空，再執行 Macrotask 一次，循環執行直到整體 Event loop 完成。
+
+## Event Loop 核心規則
+
+1. 執行同步代碼（整體 script 腳本)，如碰到 I/O 或 setTimeout 這些 Web APIs 的呼叫，會丟進 Web APIs 執行
+2. 同步代碼執行完成後，檢查 Call Stack 是否為空
+3. 如果 Call Stack 為空，完全清空 Microtask queue
+4. 執行一個 Macrotask（從 Task queue 取出）
+5. Event Loop，重複步驟 2-4，直到所有任務完成
+
+## Event loop 運行方式
+
+可以先使用第一直覺判斷下列程式碼的運行方式認為是怎麼樣?
+
+```javascript
+console.log(1);
+
+setTimeout(() => {
+  console.log(2);
+}, 0);
+
+Promise.resolve().then(() => {
+  console.log(3);
+});
+
+console.log(4);
+```
+
+你可能會認為列印出的順序是 1 → 2 → 3 → 4，但實際上列印出的順序是 1 → 4 → 3 → 2。主要就是整體 Event loop 的循環的方式問題，像在上面 Event loop 區域有講解到的，`Promise.then` 是 **Microtask**，`setTimeout` 是 **Macrotask**，而 Microtask 會優先 Macrotask 的執行，直到 Microtask 為空後才會執行 Macrotask。
+
+### 圖示說明
+
+![Browser Event Loop](/browser-event-loop.png)
+
+### 程式碼註解說明
+
+```javascript
+// 同步程式碼
+console.log(1);
+
+// 先到 Web APIs 執行後，註冊到 Macrotask
+setTimeout(() => {
+  console.log(2);
+}, 0);
+
+// 註冊到 Microtask
+Promise.resolve().then(() => {
+  console.log(3);
+});
+
+// 同步程式碼
+console.log(4);
+```
+
+## 快速回顧
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="question-1">
+    <AccordionTrigger>JavaScript 是什麼語言，核心運作是透過什麼方式?</AccordionTrigger>
+    <AccordionContent>JavaScript 是單執行緒語言，另一種說法叫做單線程，核心運行是同步的方式完成</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-2">
+    <AccordionTrigger>宏任務(Macrotask)與微任務(Microtask)誰是優先執行並清空?</AccordionTrigger>
+    <AccordionContent>微任務(Microtask)會在 Stack 為空時優先清空，再執行宏任務(Macrotask)，並重複執行直到完全清空</AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-3">
+    <AccordionTrigger>宏任務(Macrotask)與微任務(Microtask)分別是哪些?</AccordionTrigger>
+    <AccordionContent>
+      宏任務(Macrotask)
+      <ul>
+        <li>
+          整體 script
+        </li>
+        <li>
+          setTimeout
+        </li>
+        <li>
+          setInterval
+        </li>
+        <li>
+          I/O
+        </li>
+      </ul>
+      ---
+      微任務(Microtask)
+      <ul>
+        <li>
+          Promise.then()
+        </li>
+        <li>
+          Promise.catch()
+        </li>
+        <li>
+          Promise.finally()
+        </li>
+        <li>
+          queueMicrotask
+        </li>
+        <li>
+          async await 的 await 後續邏輯
+        </li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
