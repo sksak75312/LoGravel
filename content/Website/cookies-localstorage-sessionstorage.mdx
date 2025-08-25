@@ -1,0 +1,265 @@
+---
+title: 'HTTP Cookies、localStorage 及 sessionStorage 使用'
+description: 'HTTP Cookies、localStorage 及 sessionStorage 都可以存放資料在客戶端本地瀏覽器中，至於它們的使用選擇取決於資料類型、安全性、生命週期等，也因為三者很容易拿來比較及提問，所以此篇文章會介紹三者的使用方式，以及如何選擇使用。'
+keywords:
+  [
+    'HTTP Cookies',
+    'localStorage',
+    'sessionStorage',
+    'Interview',
+    'JavaScript',
+    '客戶端儲存',
+    'LoGravel',
+  ]
+publishedAt: '2025-08-25'
+updatedAt: '2025-08-25'
+openGraph: '/cookies-localstorage-sessionstorage.png'
+slug: 'cookies-localstorage-sessionstorage'
+category: 'Website'
+---
+
+## 前言
+
+HTTP Cookies、localStorage 及 sessionStorage 都可以存放資料在客戶端的瀏覽器中，至於它們的使用選擇取決於資料類型、安全性、生命週期等，也因為三者很容易拿來比較及提問，所以此篇文章會介紹三者的使用方式，以及如何選擇使用。
+
+## HTTP Cookies
+
+Cookies 是複數，是因為同一個網域下通常會存放多筆 Cookie，而所有 Cookie 都存放在瀏覽器中，只是有區分不同的設定方式。有區分伺服器設定 Cookie 跟瀏覽器設定 Cookie，而伺服器設定 Cookie 都是透過 Response 回傳 header 時夾帶Set-Cookie屬性，並透過添加HttpOnly參數確保安全性避免 XSS 與 CSRF 攻擊，瀏覽器 Cookie 就沒有提供 HttpOnly 設定，就容易遭受攻擊。
+
+### 伺服器設定 Cookie
+
+常見使用相關設定有：
+
+- `Set-Cookie`：告知 Header 設定 Cookie
+- `Secure`：該屬性僅允許使用 HTTPS 安全協定進行加密請求傳送至伺服器，永遠不會與不安全的 HTTP 一起傳送(localhost 除外)
+- `HttpOnly`：設定該屬性的 Cookie 不能被 JavaScript 存取，例如使用 `Document.cookie`，他只能在到達伺服器時被存取
+- `Expires`：設定 Cookie 到期日期
+
+```javascript
+Set-Cookie: name=example; Expires=Thu, 21 Oct 2025 07:28:00 GMT; Secure; HttpOnly;
+```
+
+### 瀏覽器設定 Cookie
+
+常見使用相關設定有：
+
+- `Secure`：該屬性僅允許使用 HTTPS 安全協定進行加密請求傳送至伺服器，永遠不會與不安全的 HTTP 一起傳送(localhost 除外)
+- `Expires`：設定 Cookie 到期日期
+
+```javascript
+// 儲存 cookie
+document.cookie = 'name=example; Expires=Thu, 21 Oct 2025 07:28:00 GMT; Secure';
+
+// 取得 cookie
+const cookieValue = document.cookie
+  .split('; ')
+  .find((row) => row.startsWith('name='))
+  ?.split('=')[1];
+```
+
+## localStorage 與 sessionStorage
+
+localStorage 與 sessionStorage 都是 Web Storage API 所提供的，儲存格是為 Key-Value pair，不論 Key 或 Value 都會是 String 型別，如果儲存非 String 型別資料，最後也會被自動轉成 String。
+
+### 兩者差異
+
+雖然都是儲存在客戶端瀏覽器中，但儲存 localStorage 中的資料，除非使用者手動或是透過程式碼的方式刪除，不然都會一直存在當前 Domain 的 localStorage 中。而 sessionStorage 則會在使用者關閉分頁或是瀏覽器時就自動清除 sessionStorage 中儲存的資料。
+
+而 localStorage 的資料可以跨分頁取得，只需要滿足唯一條件，就是在相同 Domain 下。sessionStorage 則只會存在當前的分頁下，就算相同的 Domain 及未關閉瀏覽器，也不會共享。
+
+## localStorage 使用方法
+
+### 資料儲存
+
+使用 `localStorage.setItem(key, value)` 方式儲存，如有相同的 Key，會直接覆蓋 Value。
+
+```javascript
+localStorage.setItem('name', 'LoGravel');
+```
+
+### 取得資料
+
+從 Storage 中取得資料，使用 `localStorage.getItem(key)`，如果沒有指定的 Key，則會回傳 `null`。
+
+```javascript
+localStorage.setItem('name', 'LoGravel'); // 設定資料
+
+console.log(localStorage.getItem('name')); // output: LoGravel
+
+console.log(localStorage.getItem('blogName')); // output: null
+
+const getName = localStorage.getItem('name'); // 使用常數或變數取得資料
+
+console.log(getName); // output: LoGravel
+```
+
+### 刪除指定資料
+
+使用 `localStorage.removeItem(key)` 刪除指定資料。
+
+```javascript
+localStorage.setItem('name', 'LoGravel');
+
+localStorage.removeItem('name');
+```
+
+### 清空所有資料
+
+可以使用 `localStorage.clear()` 清空所有 Storage 的資料。
+
+```javascript
+localStorage.setItem('name', 'LoGravel');
+
+localStorage.clear();
+```
+
+## 何時使用 localStorage
+
+- 非敏感，且需要持久的資料或設定，例：主題顏色、導覽狀態
+- 跨分頁共享，重新開啟瀏覽器時需保留
+
+## sessionStorage 使用方法
+
+`sessionStorage` 使用方法與 `localStorage` 相同，只是將 `localStorage` 改成 `sessionStorage`。
+
+```javascript
+sessionStorage.setItem('name', 'LoGravel'); // 儲存資料
+
+sessionStorage.getItem('name'); // 取得資料
+
+sessionStorage.removeItem('name'); // 刪除資料
+
+sessionStorage.clear(); // 清空所有資料
+```
+
+## 何時使用 sessionStorage
+
+- 不需要跨頁面的資料
+- 暫時性資料
+
+## localStorage 與 sessionStorage 型別轉換
+
+在上面提到 localStorage 與 sessionStorage 型別都會自動轉換為 string，所以在取用資料數據的時候，為了確保正確性以及可預期的結果，會手動將型別再次轉換。
+
+### Boolean
+
+```javascript
+localStorage.setItem('data', true); // 布林值型別儲存資料
+
+const getItem = localStorage.getItem('data');
+
+console.log(typeof getItem); // 未轉換型別，所以是 string
+
+console.log(typeof Boolean(getItem)); // 透過 Boolean() 轉換型別為 boolean
+console.log(typeof !!getItem); // 使用 !!(邏輯 NOT) 轉換型別為 boolean
+```
+
+### Number
+
+```javascript
+localStorage.setItem('num', 5); // 數字型別儲存資料
+
+const getItem = localStorage.getItem('num');
+
+console.log(typeof getItem); // 未轉換型別，所以是 string
+
+console.log(typeof Number(getItem)); // 透過 Number() 轉換型別，型別為 number
+```
+
+### Object
+
+物件型別儲存以及取用就需要使用 JSON.parse() 及 JSON.stringify()將資料序列化。
+
+#### 未使用序列化
+
+```javascript
+const data = {
+  name: 'LoGravel',
+  url: 'https://logravel.com/',
+};
+
+localStorage.setItem('data', data); // 未序列化儲存
+
+const getItem = localStorage.getItem('data'); // 取得資料
+
+console.log(typeof getItem); // 資料類型為 string
+console.log(getItem); // [object Object]
+```
+
+#### 使用序列化
+
+```javascript
+const data = {
+  name: 'LoGravel',
+  url: 'https://logravel.com/',
+};
+
+localStorage.setItem('data', JSON.stringify(data)); // 序列化儲存
+
+const getItem = JSON.parse(localStorage.getItem('data')); // 取得資料
+
+console.log(typeof getItem); // 資料類型為 object
+console.log(getItem); // 物件結構的資料
+```
+
+### Array
+
+Array 在 JavaScript 也屬於物件型別，在儲存時也必需使用 JSON.parse() 及 JSON.stringify()將資料序列化。
+
+#### 未使用序列化
+
+```javascript
+const num = [1, 2, 3, 4];
+
+localStorage.setItem('num', num); // 資料儲存，未使用 JSON.stringify() 儲存
+
+const getItem = localStorage.getItem('num'); // 取得資料
+
+console.log(getItem); // 會變成 1,2,3,4 的字串
+```
+
+#### 使用序列化
+
+```javascript
+const num = [1, 2, 3, 4];
+
+localStorage.setItem('num', JSON.stringify(num)); // 序列化資料儲存
+
+const getItem = JSON.parse(localStorage.getItem('num')); // 取得資料
+
+console.log(typeof getItem); // 型別 object
+console.log(getItem); // [1, 2, 3, 4]
+```
+
+## 快速回顧
+
+<Accordion type="single" collapsible>
+  <AccordionItem value="question-1">
+    <AccordionTrigger>哪一個儲存方式，瀏覽器關閉後就清除</AccordionTrigger>
+    <AccordionContent>
+      <ul>
+        <li>未設定到期日(Expires)的 Cookie，會變成 session cookie</li>
+        <li>sessionStorage</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-2">
+    <AccordionTrigger>localStorage 跟 sessionStorage 的差異為何?</AccordionTrigger>
+    <AccordionContent>
+      <ul>
+        <li>
+          localStorage
+          關閉分頁及瀏覽器，儲存的資料還會存在，並且可以跨分頁取得資料
+        </li>
+        <li>
+          sessionStorage
+          關閉分頁及瀏覽器，儲存的資料會清空，並且不可以跨分頁取得資料
+        </li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-3">
+    <AccordionTrigger>localStorage 跟 sessionStorage 儲存的資料格式是什麼?</AccordionTrigger>
+    <AccordionContent>String</AccordionContent>
+  </AccordionItem>
+</Accordion>
