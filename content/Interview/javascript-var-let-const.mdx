@@ -1,0 +1,151 @@
+---
+title: 'JavaScript var、let、const 差異'
+description: '開發的時候通常都會宣告變數，可能是一個字串、數字、布林值、陣列、物件等，主要用途可能是宣告一個起始的資料狀態，並經過某些條件後需要改更，也有是宣告後就不用更改的常數，此時就需要思考到要使用哪種方式來宣告'
+keywords:
+  [
+    '變數宣告',
+    'var、let、const',
+    'JavaScript',
+    '作用域',
+    'Interview',
+    '提升',
+    'LoGravel',
+  ]
+publishedAt: '2025-08-27'
+updatedAt: '2025-08-27'
+openGraph: '/javascript-interview.png'
+slug: 'javascript-var-let-const'
+category: 'Interview'
+---
+
+## 前言
+
+開發的時候通常都會宣告變數，可能是一個字串、數字、布林值、陣列、物件等，主要用途是宣告一個起始的資料狀態，並經過某些條件後需要改更，也有是宣告後就不用更改的常數，此時就需要思考到要使用哪種方式來宣告。然而，在 JavaScript 當中宣告變數有三種方式，分別有 var、let、const 三種，下面就來介紹它們各自的使用法方式。
+
+## var
+
+var 是 JavaScript 早期宣告變數的方式，因為它的一些特性，在 ES6+ 新出 let、const 後就取代它了，但在維護舊專案上還是有機會碰到。
+
+### 特性
+
+函式作用域，在函式內部宣告的變數外部取用不到，但如果是 `if`、`for`等 `{}` 裡面宣告的變數，外部可以取用到
+
+```javascript
+function example() {
+  var num = 1;
+}
+
+console.log(num); // ReferenceError: num is not defined
+```
+
+```javascript
+if (true) {
+  var num = 1;
+}
+
+console.log(num); // output: 1
+```
+
+可以被重新的宣告
+
+```javascript
+var num = 1;
+var num = 2;
+console.log(num); // output: 2
+```
+
+變數宣告會在編譯階段被提升（hoisting），提前使用變數會是 undefined
+
+```javascript
+console.log(num); // undefined 但不會噴錯
+
+var num = 1;
+```
+
+## let、const
+
+let、const 是 JavaScript ES6+ 出的，兩者都是`{}`區塊作用域，它們最大差異在於 `const` 宣告的時候就需要賦值並且不可重新賦值，`let` 則是宣告的時候可以不賦值並且可以重新賦值。
+
+### 相同特性
+
+區塊作用，不管是 function、if、for 等，只要有`{}`都屬於一個區塊，只要在`{}`外部取用，都會是 `not defined`
+
+```javascript
+function example() {
+  const num = 1;
+}
+
+console.log(num);
+```
+
+![javascript-let-const-not-defined](/javascript-let-const-not-defined.png)
+
+`let` 及 `const` 在編譯階段也會被提升（hoisting），但在未宣告變數前取用的話，會出現無初始化的錯誤，有些會稱為暫時性死區
+
+```javascript
+console.log(num);
+
+let num = 1;
+const num1 = 2;
+```
+
+![let const](/javascript-let-const.png)
+
+### const 特性
+
+宣告後就需要賦值，否則會錯誤
+
+```javascript
+const num;
+```
+
+![const](/javascript-const.png)
+
+不可重新賦值，如重新賦值也會錯誤
+
+```javascript
+const num = 1;
+num = 2;
+```
+
+![const type error](/javascript-const-typeerror.png)
+
+### let 特性
+
+宣告後不需要立馬賦值，只是在未給予值時，呼叫他會是 undefined
+
+```javascript
+let num;
+
+console.log(num); // output: undefined
+```
+
+可重新賦值，並且不會有錯誤
+
+```javascript
+let num = 1;
+num = 2;
+console.log(num); // output: 2
+```
+
+## 快速回顧
+<Accordion type="single" collapsible>
+  <AccordionItem value="question-1">
+    <AccordionTrigger>三者在編譯階段被提升，並提前使用變數會有什麼效果?</AccordionTrigger>
+    <AccordionContent>
+      <ul>
+        <li>var 會是 undefined</li>
+        <li>let、const 會出現未初始化的錯，有些人稱為暫時性死區</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+  <AccordionItem value="question-2">
+    <AccordionTrigger>JavaScript ES6+ 之後的是哪幾個變數宣告方式?</AccordionTrigger>
+    <AccordionContent>
+      <ul>
+        <li>const</li>
+        <li>let</li>
+      </ul>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
