@@ -82,7 +82,7 @@ export default function Home() {
             </h3>
           </div>
           <ListContainer wrap>
-            {postList.slice(0, 7).map((post) => {
+            {postList.slice(0, 6).map((post) => {
               return (
                 <ListItem key={post.slug}>
                   <PostCard {...post} />
