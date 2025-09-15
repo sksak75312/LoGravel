@@ -1,0 +1,39 @@
+---
+title: 'MVC 是什麼?'
+description: 'MVC 是一個程式設計架構，也是早期 SSR 的架構方式，它是一個前後端不分離的開發，與現代網頁開發的方式大不相同。'
+keywords:
+  [
+    'Model',
+    'View',
+    'Controller',
+    'MVC',
+    'Interview',
+    'Architecture',
+    'LoGravel',
+  ]
+publishedAt: '2025-09-15'
+updatedAt: '2025-09-15'
+openGraph: '/model-view-controller.png'
+slug: 'model-view-controller'
+category: 'Architecture'
+---
+
+## 前言
+
+MVC 是一個程式設計架構，也是早期 SSR 的架構方式，他是一個前後端不分離的開發，與現代網頁開發的方式大不相同。
+
+## MVC 運作方式
+
+MVC 整體運作方式由 Browser 發出 Request 後到 Controller，透過 Controller 呼叫 Model 執行取得或更新 Database 裡的資料，最終執行完畢會將資料傳回 Controller，Controller 會再呼叫 View 進行畫面結構的產生，當 View 頁面架構產生完畢會回傳給 Controller，並再由 Controller response 給 Browser。
+
+## Model(模型)
+
+中文叫做「模型」，接收到 Controller 指令後，會對資料做指定的操作，最終將資料回傳給 Controller。
+
+## View(視圖)
+
+中文叫做「視圖」，等待 Controller 從 Model 取得資料後，會透過 View 產生 HTML 的架構，最終將網頁內容傳遞給 Controller。
+
+## Controller(控制器)
+
+中文叫做「控制器」，會接收 Browser 的 Request 及 Response 給 Browser，並當作 Model 及 View 的中間橋梁。
