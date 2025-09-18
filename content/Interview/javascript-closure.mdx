@@ -1,0 +1,106 @@
+---
+title: 'JavaScript 閉包(Closure)'
+description: '閉包(Closure)是程式設計的一種概念，它是函式或詞彙作用域(Lexical Scoping)，內部函式可以取得外部作用域的變數，提供私有變數、資料隱藏、封裝性等特性。'
+keywords:
+  [
+    '閉包',
+    'Lexical Scoping',
+    'Interview',
+    'Closure',
+    '面試題目',
+    '程式設計',
+    'LoGravel',
+  ]
+publishedAt: '2025-09-18'
+updatedAt: '2025-09-18'
+openGraph: '/javascript-interview.png'
+slug: 'javascript-closure'
+category: 'Interview'
+---
+
+## 概念
+
+閉包(Closure)是程式設計的一種概念，它是函式或詞彙作用域(Lexical Scoping)，內部函式可以取得外部作用域的變數，提供私有變數、資料隱藏、封裝性等特性。
+
+## 特性說明
+
+- 私有變數：變數資料只存在閉包內部
+- 資料隱藏：函式外部不能隨意取得函式內的資料
+- 封裝性：資料封裝不汙染全域環境的變數
+
+```javascript
+function example() {
+  let num = 0;
+
+  return () => {
+    num++;
+    console.log(num);
+  };
+}
+
+const count = example();
+
+count(); // 1
+count(); // 2
+count(); // 3
+```
+
+## 閉包缺點
+
+- 記憶體消耗：由於閉包會保存對外部作用域的引用，所以會導致無法正確被垃圾清理回收
+- 難以理解：如果閉包內部過多巢狀結構，會造成程式碼的維護及可讀性增加困難
+
+## 私有方法
+
+可以將閉包設定傳回一個物件，並將物件裡提供各種方法去操作外部變數
+
+```javascript
+function example() {
+  let num = 0;
+
+  return {
+    increment() {
+      num++;
+    },
+    decrement() {
+      num--;
+    },
+    get() {
+      return num;
+    },
+  };
+}
+
+const count = example();
+
+count.increment();
+console.log(count.get()); // 1
+
+count.decrement();
+console.log(count.get()); // 0
+```
+
+或在起始傳入一個起始值，並對該起始值增減
+
+```javascript
+function example(x) {
+  let num = x;
+
+  return {
+    increment() {
+      num++;
+    },
+    decrement() {
+      num--;
+    },
+    get() {
+      return num;
+    },
+  };
+}
+
+const count = example(20);
+
+count.increment();
+console.log(count.get()); // 21
+```
