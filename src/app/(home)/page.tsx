@@ -76,9 +76,9 @@ export default function Home() {
         </section>
         <section className="container my-20">
           <div className="relative text-center">
-            <h3 className="text-primary mb-20 text-5xl leading-[1.5] font-medium sm:text-6xl md:text-6xl">
+            <h3 className="text-primary mb-20 text-4xl leading-[1.5] font-medium sm:text-5xl">
               最新文章
-              <span className="bg-primary absolute -bottom-6 left-1/2 block h-1 w-3/12 -translate-x-1/2 md:w-1/12"></span>
+              <span className="bg-primary absolute -bottom-6 left-1/2 block h-1 w-3/12 -translate-x-1/2 sm:w-2/12 md:w-1/12"></span>
             </h3>
           </div>
           <ListContainer wrap>
