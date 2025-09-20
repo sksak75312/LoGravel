@@ -32,19 +32,19 @@ export default function PostCard({
           {category}
         </Badge>
       </div>
-      <div className="flex h-full grow flex-col px-5 py-8 md:basis-2">
-        <span className="mb-4 flex items-center gap-x-2 text-base">
+      <div className="flex h-full grow flex-col p-5 md:basis-2">
+        <span className="mb-2 flex items-center gap-x-2 text-base">
           <Calendar size={14} className="text-sm" />
           <time dateTime={updatedAt}>{updatedAt}</time>
         </span>
-        <div className="mb-10 flex grow flex-col">
+        <div className="mb-5 flex grow flex-col">
           <h4 className="mb-4 text-2xl font-bold text-white">{title}</h4>
           <p
             className="mb-3 overflow-hidden text-base"
             style={{
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: '3',
+              WebkitLineClamp: '2',
             }}
           >
             {description}
